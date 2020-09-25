@@ -1,5 +1,8 @@
 const path = require('path')
 const express = require('express')
+const {graphqlHTTP} = require('express-graphql')
+const cors = require('cors')
+const schema = require('./graphql/schema')
 const morgan = require('morgan')
 const compression = require('compression')
 const session = require('express-session')
@@ -66,6 +69,16 @@ const createApp = () => {
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
+
+  app.use(cors())
+
+  app.use(
+    '/graphql',
+    graphqlHTTP({
+      schema,
+      graphiql: true
+    })
+  )
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))

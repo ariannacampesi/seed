@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const pkg = require('../../package.json')
-
+console.log(pkg.name)
 const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
 
 const db = new Sequelize(
