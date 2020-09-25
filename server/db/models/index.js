@@ -1,5 +1,6 @@
 const User = require('./user')
 const Garden = require('./garden')
+const DistributionZone = require('./distribution-zone')
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -18,5 +19,6 @@ Garden.belongsTo(User)
  */
 module.exports = {
   User,
-  Garden
+  Garden,
+  DistributionZone
 }

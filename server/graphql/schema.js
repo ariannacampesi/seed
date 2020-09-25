@@ -3,25 +3,36 @@ const {makeExecutableSchema} = require('graphql-tools')
 
 const typeDefs = `
 type Query {
-  getPerson(id: ID!): Person
-  getPeople: [Person]
+  getPlants: [Plant]
+  getEdiblePlants: [Plant]
+  getPlantsInZone(zoneId: Int!): [Plant]
 },
-type Person {
+type Plant {
   id: Int
-  name: String
-  height: Int
-  mass: Int
+  common_name: String
+  scientific_name: String
+  image_url: String
 }`
 
 const resolvers = {
   Query: {
-    getPeople: async () => {
-      const response = await axios.get(`https://swapi.dev/api/people`)
-      return response.data.results
+    getPlants: async () => {
+      const response = await axios.get(
+        `https://trefle.io/api/v1/plants?token=MgOw1yY9xOKD13YgA-xQmvMyqjPLZLYLmS2NWRaT0hc`
+      )
+      return response.data.data
     },
-    getPerson: async (_, {id}) => {
-      const response = await axios.get(`https://swapi.dev/api/people/${id}`)
-      return response.data
+    getEdiblePlants: async () => {
+      const response = await axios.get(
+        `https://trefle.io/api/v1/plants?filter_not%5Bedible_part%5D=null&token=MgOw1yY9xOKD13YgA-xQmvMyqjPLZLYLmS2NWRaT0hc`
+      )
+      return response.data.data
+    },
+    getPlantsInZone: async ({zoneId}) => {
+      const response = await axios.get(
+        `https://trefle.io/api/v1/distributions/${zoneId}/plants&token=MgOw1yY9xOKD13YgA-xQmvMyqjPLZLYLmS2NWRaT0hc`
+      )
+      return response.data.data
     }
   }
 }

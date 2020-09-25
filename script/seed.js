@@ -1,7 +1,8 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, DistributionZone} = require('../server/db/models')
+const zones = require('./distribution-zones')
 
 async function seed() {
   await db.sync({force: true})
@@ -20,7 +21,12 @@ async function seed() {
     })
   ])
 
+  const distributionZones = await Promise.all([
+    DistributionZone.bulkCreate(zones)
+  ])
+
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${distributionZones.length} distribution zones`)
   console.log(`seeded successfully`)
 }
 
