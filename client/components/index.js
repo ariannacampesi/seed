@@ -3,8 +3,11 @@
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
-export {default as Navbar} from './navbar'
+export {default as Navbar} from './Navbar/navbar'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
-export {default as Plants} from './plants'
-export {default as LocationForm} from './location'
+export {default as NewGarden} from './Garden/new-garden'
+export {default as LocationForm} from './Location/location-form'
+export {default as PlantList} from './Plant/plant-list'
+export {default as PlantsInZone} from './Plant/plants-in-zone'
+export {default as SinglePlant} from './Plant/single-plant'

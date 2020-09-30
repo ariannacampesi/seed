@@ -1,5 +1,5 @@
-body {
-  font-family: sans-serif;
+html {
+  background-color: white;
 }
 
 a {
@@ -18,4 +18,17 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+/* NAVBAR */
+#nav.bg-light {
+  background-color: #bcdaf1 !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: black !important;
+}
+
+img {
+  border-radius: 20px 20px 20px 20px;
 }
