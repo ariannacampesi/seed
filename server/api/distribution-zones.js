@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const {DistributionZone} = require('../db/models')
 module.exports = router
-const axios = require('axios')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -9,7 +8,7 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['name', 'twdgCode']
+      attributes: ['name', 'twdgCode', 'id']
     })
     res.json(distributionZones)
   } catch (err) {
@@ -23,6 +22,20 @@ router.get('/:distributionZone', async (req, res, next) => {
     const distributionZone = await DistributionZone.findOne({
       where: {
         twdgCode: zone
+      }
+    })
+    res.json(distributionZone)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/by-id/:zoneId', async (req, res, next) => {
+  try {
+    const {zoneId} = req.params
+    const distributionZone = await DistributionZone.findOne({
+      where: {
+        id: zoneId
       }
     })
     res.json(distributionZone)

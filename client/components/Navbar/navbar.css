@@ -1,0 +1,27 @@
+#nav {
+  font-family: 'Alice', serif;
+  font-size: 20px;
+  display: flex;
+  border-bottom: thin solid gray;
+}
+
+#logo {
+  height: 120px;
+  width: 120px;
+}
+
+#links {
+  display: flex;
+}
+
+a.nav-link:hover {
+  box-shadow: 0 15px #f9dc5c;
+  border-radius: 20px 20px 20px 20px;
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+  background-color: #d5b0ac;
+  width: auto;
+  border-radius: 20px 20px 20px 20px;
+}

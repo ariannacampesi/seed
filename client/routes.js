@@ -10,7 +10,11 @@ import {
   LocationForm,
   PlantsInZone,
   PlantList,
-  SinglePlant
+  SinglePlant,
+  MyGardens,
+  SingleGarden,
+  SingleGardenView,
+  Grid
 } from './components'
 import {me} from './store'
 
@@ -38,6 +42,12 @@ class Routes extends Component {
           component={PlantsInZone}
         />
         <Route path="/plants/:plantId/:locationId" component={SinglePlant} />
+        <Route
+          exact
+          path="/my-gardens/:gardenId"
+          component={SingleGardenView}
+        />
+        <Route exact path="/my-gardens" component={MyGardens} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here arte only available after logging in */}

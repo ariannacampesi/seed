@@ -1,5 +1,5 @@
 html {
-  background-color: white;
+  background-color: #bfe6ed;
 }
 
 a {
@@ -18,17 +18,14 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+  font-family: 'Alice', serif;
 }
 
 /* NAVBAR */
 #nav.bg-light {
-  background-color: #bcdaf1 !important;
+  background-color: transparent !important;
 }
 
 .navbar-light .navbar-nav .nav-link {
   color: black !important;
-}
-
-img {
-  border-radius: 20px 20px 20px 20px;
 }

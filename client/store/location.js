@@ -2,12 +2,20 @@ import axios from 'axios'
 
 //ACTION TYPES
 const GET_DISTRIBUTION_ZONES = 'GET_DISTRIBUTION_ZONES'
+const GET_DISTRIBUTION_ZONE = 'GET_DISTRIBUTION_ZONE'
 
 //ACTION CREATORS
 const getDistributionZones = distributionZones => {
   return {
     type: GET_DISTRIBUTION_ZONES,
     distributionZones
+  }
+}
+
+const getDistributionZone = distributionZone => {
+  return {
+    type: GET_DISTRIBUTION_ZONE,
+    distributionZone
   }
 }
 
@@ -24,10 +32,23 @@ export const fetchDistributionZonesFromServer = () => {
   }
 }
 
+export const fetchDistributionZoneFromServer = id => {
+  const path = `api/distribution-zones/by-id/${id}`
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(path)
+      dispatch(getDistributionZone(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
 //REDUCER
 const initialState = {
   isLoading: true,
-  distributionZones: []
+  distributionZones: [],
+  distributionZone: {}
 }
 
 export default function distributionZonesReducer(state = initialState, action) {
@@ -37,6 +58,11 @@ export default function distributionZonesReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         distributionZones: action.distributionZones
+      }
+    case GET_DISTRIBUTION_ZONE:
+      return {
+        ...state,
+        distributionZone: action.distributionZone
       }
     default:
       return state

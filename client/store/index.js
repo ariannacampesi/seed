@@ -5,8 +5,14 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import distributionZonesReducer from './location'
 import plantsReducer from './plant'
+import gardenReducer from './garden'
 
-const reducer = combineReducers({user, distributionZonesReducer, plantsReducer})
+const reducer = combineReducers({
+  user,
+  distributionZonesReducer,
+  plantsReducer,
+  gardenReducer
+})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )

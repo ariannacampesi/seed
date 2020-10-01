@@ -3,25 +3,27 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {logout} from '../../store'
 import {Navbar as NavBar, Nav, NavDropdown} from 'react-bootstrap'
+import logo from '../../../public/8052823be0fc380beda00fb8b79c5280.jpg'
+import './navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => {
   return (
     <NavBar bg="light" expand="lg" id="nav">
-      <NavBar.Brand href="/home">grow</NavBar.Brand>
+      <NavBar.Brand href="/home">
+        <img id="logo" src={logo} />
+      </NavBar.Brand>
       <NavBar.Toggle aria-controls="basic-NavBar-nav" />
-      {isLoggedIn ? (
-        <Nav>
+      <div id="links">
+        <Nav.Link href="/plants/in-zone">Browse Plants</Nav.Link>
+        {isLoggedIn ? (
           <NavBar.Collapse id="basic-NavBar-nav">
             <Nav className="mr-auto">
               <NavDropdown title="My Account" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/new-garden">
-                  Get Started
-                </NavDropdown.Item>
-                <NavDropdown.Item href="/plants/in-zone">
-                  Plants In My Area
-                </NavDropdown.Item>
                 <NavDropdown.Item href="/my-gardens">
                   My Gardens
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/new-garden">
+                  Create New Garden
                 </NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">
                   Something
@@ -30,20 +32,20 @@ const Navbar = ({handleClick, isLoggedIn}) => {
                 <NavDropdown.Item href="#action/3.4">
                   Separated link
                 </NavDropdown.Item>
+                <NavDropdown.Item href="#" onClick={handleClick}>
+                  Logout
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </NavBar.Collapse>
-          <Nav.Link href="#" onClick={handleClick}>
-            Logout
-          </Nav.Link>
-        </Nav>
-      ) : (
-        <Nav>
-          {/* The navbar will show these links before you log in */}
-          <Nav.Link href="/login">Login</Nav.Link>
-          <Nav.Link href="/signup">Sign Up</Nav.Link>
-        </Nav>
-      )}
+        ) : (
+          <Nav>
+            {/* The navbar will show these links before you log in */}
+            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/signup">Sign Up</Nav.Link>
+          </Nav>
+        )}
+      </div>
     </NavBar>
   )
 }

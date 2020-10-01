@@ -4,11 +4,14 @@ const Sequelize = require('sequelize')
 const Garden = db.define('garden', {
   size: {
     type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  location: {
-    type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      customValidator(size) {
+        if (size < 150) {
+          throw new Error('Space has to be at least 150 square feet.')
+        }
+      }
+    }
   },
   plantType: {
     type: Sequelize.ENUM('edible', 'non-edible', 'both'),

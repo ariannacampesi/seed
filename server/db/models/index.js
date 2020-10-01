@@ -10,6 +10,8 @@ const DistributionZone = require('./distribution-zone')
 
 User.hasOne(Garden)
 Garden.belongsTo(User)
+Garden.belongsTo(DistributionZone)
+DistributionZone.hasMany(Garden)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
