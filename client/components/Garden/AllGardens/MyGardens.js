@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import SingleGarden from './single-garden'
-import {fetchGardensFromServer} from '../../store/garden'
+import GardenBox from './GardenBox'
+import {fetchGardensFromServer} from '../../../store/garden'
 import {connect} from 'react-redux'
 
 class MyGardens extends Component {
@@ -14,7 +14,7 @@ class MyGardens extends Component {
         <h4 id="my-gardens-title">My Gardens</h4>
         <div id="my-gardens">
           {this.props.gardens.map((garden, index) => (
-            <SingleGarden key={index} garden={garden} index={index} />
+            <GardenBox key={index} garden={garden} index={index} />
           ))}
         </div>
       </div>

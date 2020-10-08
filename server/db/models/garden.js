@@ -2,6 +2,10 @@ const db = require('../db')
 const Sequelize = require('sequelize')
 
 const Garden = db.define('garden', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   size: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -18,7 +22,8 @@ const Garden = db.define('garden', {
     allowNull: false
   },
   plants: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    defaultValue: []
   }
 })
 

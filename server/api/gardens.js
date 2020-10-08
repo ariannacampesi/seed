@@ -47,12 +47,32 @@ router.post('/', async (req, res, next) => {
   try {
     const userId = req.user.dataValues.id
     const garden = await Garden.create({
+      name: req.body.name,
       size: req.body.size,
       plantType: req.body.plantType,
       distributionZoneId: req.body.distributionZoneId,
       userId: userId
     })
     res.send(garden)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:gardenId', async (req, res, next) => {
+  try {
+    const {gardenId} = req.params
+    const foundGarden = await Garden.findByPk(+gardenId)
+    const {plantId} = req.body
+    console.log('foundGarden', foundGarden)
+    if (foundGarden.plants.includes(+plantId)) {
+      console.log('plant is already there!')
+    } else {
+      await foundGarden.update({
+        plants: [...foundGarden.plants, plantId]
+      })
+    }
+    res.json(foundGarden)
   } catch (err) {
     next(err)
   }

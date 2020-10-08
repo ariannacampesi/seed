@@ -1,31 +1,368 @@
-html {
-  background-color: #bfe6ed;
-}
-
-a {
-  text-decoration: none;
-}
-
-label {
-  display: block;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
+body {
   font-family: 'Alice', serif;
 }
 
 /* NAVBAR */
-#nav.bg-light {
-  background-color: transparent !important;
+
+#nav {
+  font-family: 'Alice', serif;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.navbar-light .navbar-nav .nav-link {
+a {
+  text-decoration: none !important;
   color: black !important;
+}
+
+#logo {
+  height: 150px;
+  width: 150px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: space-around;
+}
+
+.nav-link:hover {
+  /* background-image: url(../public/sunflower.png);
+  width: auto; */
+  border-bottom: solid thick #f9dc5c;
+  text-decoration: none;
+  background-color: #ef6461;
+  width: auto;
+  border-radius: 20px 20px 20px 20px;
+}
+
+/* FOOTER */
+#fence {
+  background-image: url('./e8c31eb93d4ccab91e52256f6a7d5ea9.png');
+  background-repeat: repeat-x;
+  background-position: top;
+  background-size: 20%;
+  height: 100px;
+  /* position: fixed; */
+  width: 100%;
+  bottom: 0;
+}
+
+/* PLANTS */
+#plants-in-zone {
+  display: flex;
+  flex-direction: column;
+}
+
+#choose-different-location {
+  margin: 20px;
+  font-size: 30px;
+  display: flex;
+  align-self: flex-end;
+}
+
+#back-button {
+  font-size: 30px;
+  margin-left: 20px;
+}
+
+#plant-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+#plant-in-plant-list {
+  font-family: 'Alice', sans-serif;
+  font-size: 20px;
+  width: 250px;
+  text-align: center;
+  margin: 20px;
+}
+
+#plant-in-plant-list-name {
+  padding-bottom: 10px;
+}
+#plant-in-plant-list-img {
+  border: thin solid black;
+  height: 250px;
+  width: 220px;
+  border-radius: 20px 20px 20px 20px;
+}
+
+#single-plant-view {
+  font-size: 40px;
+  margin: 20px;
+}
+#single-plant-view > img {
+  height: 300px;
+  width: 300px;
+  border-radius: 20px 20px 20px 20px;
+}
+
+#add-to-garden-button {
+  font-family: 'Lato', sans-serif;
+}
+
+#successfully-added {
+  font-size: 30px;
+  padding: 20px;
+}
+
+#go-to-garden-button {
+  font-size: 30px;
+  margin-left: 20px;
+}
+
+/* GARDEN  */
+label {
+  font-family: 'Alice', serif;
+}
+
+/* NEW-GARDEN */
+#get-started-button {
+  border-radius: 40px 40px 40px 40px;
+  font-size: 40px;
+  padding: 20px;
+  font-family: 'Alice', serif;
+}
+
+#get-started-container {
+  display: flex;
+  justify-content: center;
+  padding: 90px;
+}
+
+#questionaire {
+  display: flex;
+  flex-direction: column;
+  font-size: 40px;
+  font-family: 'Alice', serif;
+  margin: 10%;
+}
+
+#Question1 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.location-select {
+  font-family: 'Alice', serif;
+  margin: 20px;
+  font-size: 40px;
+  width: 400px;
+  align-self: center;
+}
+
+#Question2 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#size-input {
+  font-size: 40px;
+  width: 90px;
+  margin: 20px;
+  font-family: 'Alice', serif;
+}
+
+#Question3 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#plant-select {
+  font-family: 'Alice', serif;
+  font-size: 40px;
+  align-self: center;
+  margin: 20px;
+}
+
+#Question4 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#name-input {
+  font-size: 40px;
+  margin: 20px;
+  font-family: 'Alice', serif;
+  text-align: center;
+}
+
+button {
+  font-family: 'Alice', serif;
+  border-radius: 20px 20px 20px 20px;
+  background-color: #368156;
+  color: white;
+  border: solid thin #368156;
+  margin: 2px;
+}
+
+#submit-answers {
+  display: flex;
+  flex-direction: column;
+  font-size: 40px;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Alice', serif;
+}
+
+#submit-answers button {
+  font-size: 40px;
+  padding: 20px;
+  margin: 40px;
+  font-family: 'Alice', serif;
+  border-radius: 40px 40px 40px 40px;
+}
+
+.next-previous {
+  display: flex;
+  flex-direction: reow;
+  justify-content: center;
+  margin: 5px;
+}
+
+.next-previous button {
+  font-family: 'Alice', serif;
+  border-radius: 20px 20px 20px 20px;
+  font-size: 40px;
+}
+
+/* SINGLE-GARDEN IN MY GARDENS COLLECTION*/
+.single-garden-container-details {
+  padding-bottom: 20px;
+}
+
+#single-garden-container {
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  background-color: white;
+  border: thick solid transparent;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 250px;
+  height: 250px;
+  border-radius: 20px 20px 20px 20px;
+  background-color: #368156;
+}
+
+#single-garden-container:hover {
+  border: thick dashed white;
+  font-weight: bold;
+}
+
+#my-gardens {
+  font-family: 'Lato', sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#my-gardens-title {
+  font-family: 'Alice', serif;
+  color: #ef6461;
+  font-size: 30px;
+  text-align: center;
+  margin: 20px;
+}
+
+#single-garden {
+  padding: 20px;
+}
+
+#grid {
+  border: thin solid black;
+  padding: 0px;
+  margin-top: 50px;
+}
+
+table {
+  border-spacing: 0px;
+  border: thin solid gray;
+  margin: 30px;
+}
+
+td {
+  text-align: center;
+  height: 1px;
+  width: 1px;
+  background-color: white;
+  /* border: thin solid gray; */
+}
+
+td:hover {
+  background-color: #368156;
+}
+#\30 \,145 {
+  background-color: red;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#single-garden-view {
+  display: flex;
+}
+
+#single-garden-details-div {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#garden-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 30px;
+}
+
+#grid-details {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#details {
+  font-family: 'Lato', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.add-plants-button {
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  margin-top: 20px;
+}
+/* LOCATION FORM */
+#location-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 50px;
+  padding: 20px;
+  font-family: 'Alice', serif;
+  font-size: 40px;
+}
+
+#submit-location-form {
+  width: 210px;
+  align-self: center;
+  margin: 20px;
+  font-size: 40px;
+  border-radius: 20px 20px 20px 20px;
 }

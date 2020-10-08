@@ -1,8 +1,12 @@
 import React, {Component} from 'react'
-import {fetchDistributionZonesFromServer} from '../../store/location'
+import {
+  fetchDistributionZonesFromServer,
+  fetchDistributionZoneFromServer
+} from '../../store/location'
 import {createGardenOnServer} from '../../store/garden'
 import {connect} from 'react-redux'
-import Grid from './grid'
+import Grid from './SingleView/Grid'
+import {Redirect} from 'react-router-dom'
 
 class NewGarden extends Component {
   constructor() {
@@ -14,13 +18,16 @@ class NewGarden extends Component {
       distributionZoneId: '1',
       size: 150,
       plantType: 'edible',
-      submitted: false
+      name: '',
+      submitted: false,
+      addPlants: false
     }
     this.handleNext = this.handleNext.bind(this)
     this.handlePrev = this.handlePrev.bind(this)
     this.nextQuestion = this.nextQuestion.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -40,13 +47,20 @@ class NewGarden extends Component {
     this.setState(this.prevQuestion())
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
     const size = +this.state.size
     const plantType = this.state.plantType
     const distributionZoneId = +this.state.distributionZoneId
-    this.props.createGarden({distributionZoneId, size, plantType})
+    const name = this.state.name
+    await this.props.createGarden({distributionZoneId, name, size, plantType})
+    const location = await this.props.getDistributionZone(distributionZoneId)
+    console.log('location', location)
     this.setState({submitted: true})
+  }
+
+  handleClick() {
+    this.setState({addPlants: true})
   }
 
   nextQuestion() {
@@ -56,7 +70,11 @@ class NewGarden extends Component {
         return: (
           <div id="Question1">
             <label>Where do you want to grow your garden?</label>
-            <select name="distributionZoneId" onChange={this.handleChange}>
+            <select
+              className="location-select"
+              name="distributionZoneId"
+              onChange={this.handleChange}
+            >
               {this.props.distributionZones.map((zone, index) => {
                 return (
                   <option key={index} value={zone.id}>
@@ -77,6 +95,7 @@ class NewGarden extends Component {
             <label>What is the square footage of your garden?</label>
             <div>
               <input
+                id="size-input"
                 name="size"
                 onChange={this.handleChange}
                 type="number"
@@ -93,12 +112,34 @@ class NewGarden extends Component {
         title: 'Question3',
         return: (
           <div id="Question3">
-            <div>What type of plants do you want to grow?</div>
-            <select name="plantType" onChange={this.handleChange}>
-              <option value="edible">edible</option>
-              <option value="non-edible">non-edible</option>
-              <option value="both">both</option>
+            <div>Do you want to eat what you grow?</div>
+            <select
+              id="plant-select"
+              name="plantType"
+              onChange={this.handleChange}
+            >
+              <option value="edible">yes</option>
+              <option value="non-edible">no</option>
+              <option value="both">no preference</option>
             </select>
+          </div>
+        ),
+        buttonTextNext: '>',
+        buttonTextPrev: '<'
+      },
+      {
+        title: 'Question4',
+        return: (
+          <div id="Question4">
+            <div>Name of Garden</div>
+            <div>
+              <input
+                id="name-input"
+                name="name"
+                onChange={this.handleChange}
+                type="text"
+              />
+            </div>
           </div>
         ),
         buttonTextNext: '>',
@@ -117,6 +158,8 @@ class NewGarden extends Component {
       return {currentQuestion: questions[2]}
     } else if (this.state.currentQuestion.title === 'Question3') {
       return {currentQuestion: questions[3]}
+    } else if (this.state.currentQuestion.title === 'Question4') {
+      return {currentQuestion: questions[4]}
     }
   }
 
@@ -127,7 +170,11 @@ class NewGarden extends Component {
         return: (
           <div id="Question1">
             <label>Where do you want to grow your garden?</label>
-            <select name="distributionZoneId" onChange={this.handleChange}>
+            <select
+              className="location-select"
+              name="distributionZoneId"
+              onChange={this.handleChange}
+            >
               {this.props.distributionZones.map((zone, index) => {
                 return (
                   <option key={index} value={zone.id}>
@@ -148,6 +195,7 @@ class NewGarden extends Component {
             <label>What is the square footage of your garden?</label>
             <div>
               <input
+                id="size-input"
                 name="size"
                 onChange={this.handleChange}
                 type="number"
@@ -164,12 +212,35 @@ class NewGarden extends Component {
         title: 'Question3',
         return: (
           <div id="Question3">
-            <div>What type of plants do you want to grow?</div>
-            <select name="plantType" onChange={this.handleChange}>
-              <option value="edible">edible</option>
-              <option value="non-edible">non-edible</option>
-              <option value="both">both</option>
+            <div>Do you want to eat what you grow?</div>
+            <select
+              id="plant-select"
+              name="plantType"
+              onChange={this.handleChange}
+            >
+              <option value="edible">yes</option>
+              <option value="non-edible">no</option>
+              <option value="both">no preference</option>
             </select>
+          </div>
+        ),
+        buttonTextNext: '>',
+        buttonTextPrev: '<'
+      },
+      {
+        title: 'Question4',
+        return: (
+          <div id="Question4">
+            <div>Name of Garden</div>
+            <div>
+              <input
+                id="name-input"
+                name="name"
+                onChange={this.handleChange}
+                type="text"
+                value={this.state.name}
+              />
+            </div>
           </div>
         ),
         buttonTextNext: '>',
@@ -184,19 +255,43 @@ class NewGarden extends Component {
       return {currentQuestion: questions[0]}
     } else if (this.state.currentQuestion.title === 'Question3') {
       return {currentQuestion: questions[1]}
-    } else {
+    } else if (this.state.currentQuestion.title === 'Question4') {
       return {currentQuestion: questions[2]}
+    } else {
+      return {currentQuestion: questions[3]}
     }
   }
 
   render() {
-    if (this.state.submitted === true) {
+    console.log('in render', this.props)
+    if (this.state.submitted === true && this.state.addPlants === false) {
       return (
         <div>
-          <h4>Garden created!</h4>
+          <h1>
+            {this.props.garden.name} in {this.props.distributionZone.name}{' '}
+            created!
+          </h1>
+          <button
+            type="button"
+            className="add-plants-button"
+            onClick={this.handleClick}
+          >
+            Add Plants
+          </button>
           <Grid size={this.state.size} />
-          <div>Start picking your plants!</div>
         </div>
+      )
+    } else if (this.state.submitted === true && this.state.addPlants === true) {
+      return (
+        <Redirect
+          to={{
+            pathname: `/plants/in-zone/${this.props.distributionZone.twdgCode}`,
+            state: {
+              gardenId: this.props.garden.id,
+              chooseDifferentLocation: false
+            }
+          }}
+        />
       )
     }
 
@@ -263,7 +358,9 @@ class NewGarden extends Component {
 
 const mapState = state => {
   return {
-    distributionZones: state.distributionZonesReducer.distributionZones
+    distributionZones: state.distributionZonesReducer.distributionZones,
+    distributionZone: state.distributionZonesReducer.distributionZone,
+    garden: state.gardenReducer.garden
   }
 }
 
@@ -271,6 +368,8 @@ const mapDispatch = dispatch => {
   return {
     getDistributionZones: distributionZones =>
       dispatch(fetchDistributionZonesFromServer(distributionZones)),
+    getDistributionZone: distributionZoneId =>
+      dispatch(fetchDistributionZoneFromServer(distributionZoneId)),
     createGarden: garden => dispatch(createGardenOnServer(garden))
   }
 }

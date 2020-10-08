@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
+  Home,
   Login,
   Signup,
   UserHome,
@@ -12,7 +13,7 @@ import {
   PlantList,
   SinglePlant,
   MyGardens,
-  SingleGarden,
+  GardenBox,
   SingleGardenView,
   Grid
 } from './components'
@@ -42,20 +43,20 @@ class Routes extends Component {
           component={PlantsInZone}
         />
         <Route path="/plants/:plantId/:locationId" component={SinglePlant} />
-        <Route
-          exact
-          path="/my-gardens/:gardenId"
-          component={SingleGardenView}
-        />
-        <Route exact path="/my-gardens" component={MyGardens} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here arte only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            <Route
+              exact
+              path="/my-gardens/:gardenId"
+              component={SingleGardenView}
+            />
+            <Route exact path="/my-gardens" component={MyGardens} />
+            <Route path="/home" component={Home} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        <Route component={Home} />
       </Switch>
     )
   }

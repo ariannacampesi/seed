@@ -30,16 +30,27 @@ class LocationForm extends Component {
     const {distributionZones} = this.props
     if (!this.state.submitted) {
       return (
-        <form onSubmit={this.handleSubmit}>
-          <label>Location</label>
-          <select name="twdgCode" onChange={this.handleChange}>
+        <form id="location-form" onSubmit={this.handleSubmit}>
+          <label id="location">
+            Select a location to see plants grown in that area.
+          </label>
+          <select
+            className="location-select"
+            name="twdgCode"
+            onChange={this.handleChange}
+          >
+            <option value="none" defaultValue="selected">
+              location
+            </option>
             {distributionZones.map((zone, index) => (
               <option value={zone.twdgCode} key={index}>
                 {zone.name}
               </option>
             ))}
           </select>
-          <button type="submit">Submit</button>
+          <button id="submit-location-form" type="submit">
+            Submit
+          </button>
         </form>
       )
     } else {

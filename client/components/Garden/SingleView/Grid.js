@@ -2,15 +2,19 @@ import React from 'react'
 
 const Grid = props => {
   const {size} = props
+  // size = 150 square feet
 
-  const rows = Math.floor(Math.sqrt(size))
-  const columns = Math.floor(Math.sqrt(size))
+  let inch = 1
+  let squareRoot = Math.sqrt(size) //12.24
+  let feetInInches = Math.floor(squareRoot * 12) //146.9 inches
+  let rows = feetInInches
+  let columns = feetInInches
 
   const tr = []
   for (let r = 0; r < rows; r++) {
     const td = []
     for (let c = 0; c < columns; c++) {
-      td.push(<td key={`${r},${c}`} />)
+      td.push(<td key={`${r},${c}`} id={`${r},${c}`} />)
     }
     tr.push(<tr key={r}>{td}</tr>)
   }

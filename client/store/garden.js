@@ -3,6 +3,7 @@ import axios from 'axios'
 const CREATE_GARDEN = 'CREATE_GARDEN'
 const GET_GARDENS = 'GET_GARDENS'
 const GET_GARDEN = 'GET_GARDEN'
+const ADD_PLANT_TO_GARDEN = 'ADD_PLANT_TO_GARDEN'
 
 //ACTION CREATORS
 const createGarden = garden => {
@@ -23,6 +24,13 @@ const getGarden = garden => {
   return {
     type: GET_GARDEN,
     garden
+  }
+}
+
+const addPlantToGarden = plant => {
+  return {
+    type: ADD_PLANT_TO_GARDEN,
+    plant
   }
 }
 
@@ -62,13 +70,25 @@ export const fetchGardenFromServer = gardenId => {
     }
   }
 }
+
+export const addPlantToGardenOnServer = (gardenId, plantId) => {
+  const path = `/api/gardens/${gardenId}`
+  return async dispatch => {
+    try {
+      console.log('gardenId', gardenId)
+      console.log('plantId', plantId)
+      const {data} = await axios.put(path, plantId)
+      console.log('data', data)
+      dispatch(addPlantToGarden(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
 const initialState = {
-  distributionZoneId: 0,
-  size: 0,
-  plantType: '',
-  plants: [],
   gardens: [],
-  garden: {}
+  garden: {},
+  gardenPlant: ''
 }
 
 const gardenReducer = (state = initialState, action) => {
@@ -76,9 +96,7 @@ const gardenReducer = (state = initialState, action) => {
     case CREATE_GARDEN:
       return {
         ...state,
-        distributionZoneId: action.distributionZoneId,
-        size: action.size,
-        plantType: action.plantType
+        garden: action.garden
       }
     case GET_GARDENS:
       return {
@@ -89,6 +107,11 @@ const gardenReducer = (state = initialState, action) => {
       return {
         ...state,
         garden: action.garden
+      }
+    case ADD_PLANT_TO_GARDEN:
+      return {
+        ...state,
+        gardenPlant: action.plant
       }
     default:
       return state

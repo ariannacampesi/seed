@@ -8,8 +8,9 @@ const DistributionZone = require('./distribution-zone')
  *    BlogPost.belongsTo(User)
  */
 
-User.hasOne(Garden)
+User.hasMany(Garden)
 Garden.belongsTo(User)
+
 Garden.belongsTo(DistributionZone)
 DistributionZone.hasMany(Garden)
 

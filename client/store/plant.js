@@ -3,6 +3,7 @@ import axios from 'axios'
 //ACTION TYPES
 const GET_PLANT = 'GET_PLANT'
 const GET_ALL_PLANTS = 'GET_PLANTS'
+const GET_PLANTS_IN_GARDEN = 'GET_PLANTS_IN_GARDEN'
 const GET_PLANTS_IN_ZONE = 'GET_PLANTS_IN_ZONE'
 
 //ACTION CREATORS
@@ -18,6 +19,14 @@ const getAllPlants = plants => {
     plants
   }
 }
+
+const getPlantsInGarden = gardenPlants => {
+  return {
+    type: GET_PLANTS_IN_GARDEN,
+    gardenPlants
+  }
+}
+
 const getPlantsInZone = plants => {
   return {
     type: GET_PLANTS_IN_ZONE,
@@ -49,6 +58,22 @@ export const fetchPlant = id => {
   }
 }
 
+export const fetchPlantsInGarden = plants => {
+  console.log('plants in store', Array.isArray(plants))
+  return async dispatch => {
+    try {
+      console.log('inside fetchPlantsInGarden try')
+      const gardenPlants = await Promise.all(
+        plants.map(plant => axios.get(`/api/plants/${plant}`))
+      )
+      console.log('gardenPlants in store', gardenPlants)
+      dispatch(getPlantsInGarden(gardenPlants))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
 export const fetchPlantsInZone = zone => {
   const path = `/api/plants/in-zone/${zone}`
   return async dispatch => {
@@ -65,7 +90,8 @@ const initialState = {
   isLoadingPlants: true,
   isLoadingSinglePlant: true,
   plant: {},
-  plants: []
+  plants: [],
+  gardenPlants: []
 }
 
 export default function plantsReducer(state = initialState, action) {
@@ -81,6 +107,11 @@ export default function plantsReducer(state = initialState, action) {
         ...state,
         isLoadingPlants: false,
         plants: action.plants
+      }
+    case GET_PLANTS_IN_GARDEN:
+      return {
+        ...state,
+        gardenPlants: action.gardenPlants
       }
     case GET_PLANTS_IN_ZONE:
       return {

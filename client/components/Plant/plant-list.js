@@ -13,6 +13,7 @@ class PlantList extends Component {
   }
   componentDidMount() {
     const {zone} = this.props
+    console.log('zone in plant-list', zone)
     this.props.getPlantsInZone(zone)
   }
 
@@ -27,12 +28,13 @@ class PlantList extends Component {
       )
 
     if (!this.state.singlePlantView) {
+      console.log('this.props.plants', this.props.plants)
       return (
-        <div>
+        <div id="plant-list">
           {this.props.plants.data.map((plant, index) => (
             <div
+              id="plant-in-plant-list"
               key={index}
-              id={plant.id}
               onClick={() =>
                 this.setState({
                   singlePlantView: true,
@@ -40,8 +42,10 @@ class PlantList extends Component {
                 })
               }
             >
-              <div id={plant.id}>{plant.common_name}</div>
-              <img id={plant.id} height={40} width={40} src={plant.image_url} />
+              <div id="plant-in-plant-list-name">
+                {plant.common_name.toLowerCase()}
+              </div>
+              <img id="plant-in-plant-list-img" src={plant.image_url} />
             </div>
           ))}
         </div>
@@ -51,11 +55,16 @@ class PlantList extends Component {
         <div>
           <button
             type="button"
+            id="back-button"
             onClick={() => this.setState({singlePlantView: false})}
           >
-            Back to Results
+            {' '}
+            {'<'} go back
           </button>
-          <SinglePlant id={this.state.singlePlantId} />
+          <SinglePlant
+            id={this.state.singlePlantId}
+            gardenId={this.props.gardenId}
+          />
         </div>
       )
     }

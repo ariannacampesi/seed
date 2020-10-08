@@ -3,15 +3,18 @@
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
+export {default as Home} from './home'
 export {default as Navbar} from './Navbar/navbar'
+export {default as FooterBorder} from './Footer/footer-border'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
-export {default as NewGarden} from './Garden/new-garden'
+export {default as NewGarden} from './Garden/NewGarden'
 export {default as LocationForm} from './Location/location-form'
 export {default as PlantList} from './Plant/plant-list'
 export {default as PlantsInZone} from './Plant/plants-in-zone'
 export {default as SinglePlant} from './Plant/single-plant'
-export {default as MyGardens} from './Garden/my-gardens'
-export {default as SingleGarden} from './Garden/single-garden'
-export {default as SingleGardenView} from './Garden/single-garden-view'
-export {default as Grid} from './Garden/grid'
+export {default as MyGardens} from './Garden/AllGardens/MyGardens'
+export {default as GardenBox} from './Garden/AllGardens/GardenBox'
+export {default as SingleGardenView} from './Garden/SingleView/View'
+export {default as Grid} from './Garden/SingleView/Grid'
+export {default as Footer} from './Footer/footer'
