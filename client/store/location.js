@@ -33,10 +33,12 @@ export const fetchDistributionZonesFromServer = () => {
 }
 
 export const fetchDistributionZoneFromServer = id => {
-  const path = `api/distribution-zones/by-id/${id}`
+  const path = `/api/distribution-zones/by-id/${id}`
+  console.log('id in store', id)
   return async dispatch => {
     try {
       const {data} = await axios.get(path)
+      console.log('data in store', data)
       dispatch(getDistributionZone(data))
     } catch (err) {
       console.error(err.message)

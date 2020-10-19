@@ -1,20 +1,30 @@
-import React from 'react'
+import React, {useState} from 'react'
+import {connect} from 'react-redux'
+import {fetchPlant} from '../../../store/plant'
 
 const Grid = props => {
   const {size} = props
-  // size = 150 square feet
-
-  let inch = 1
-  let squareRoot = Math.sqrt(size) //12.24
-  let feetInInches = Math.floor(squareRoot * 12) //146.9 inches
-  let rows = feetInInches
-  let columns = feetInInches
+  console.log('props in Grid', props)
+  let {gardenPlants} = props
+  console.log('gardenPlants', gardenPlants)
+  let squareRoot = Math.floor(Math.sqrt(size)) //12.24
+  let rows = squareRoot
+  let columns = squareRoot
 
   const tr = []
   for (let r = 0; r < rows; r++) {
     const td = []
     for (let c = 0; c < columns; c++) {
-      td.push(<td key={`${r},${c}`} id={`${r},${c}`} />)
+      td.push(
+        <td onClick={props.props} key={`${r},${c}`} id={`${r},${c}`}>
+          {gardenPlants.map(
+            plant =>
+              plant.coordinates && plant.coordinates === `${r},${c}`
+                ? plant.name
+                : ''
+          )}
+        </td>
+      )
     }
     tr.push(<tr key={r}>{td}</tr>)
   }
@@ -32,4 +42,15 @@ const Grid = props => {
   )
 }
 
-export default Grid
+const mapState = state => {
+  return {
+    plant: state.plantsReducer.plant
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    getPlant: id => dispatch(fetchPlant(id))
+  }
+}
+export default connect(mapState, mapDispatch)(Grid)

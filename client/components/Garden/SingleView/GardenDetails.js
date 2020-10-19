@@ -4,8 +4,11 @@ class GardenDetails extends Component {
   render() {
     return (
       <div id="garden-title">
-        <h3>{this.props.garden.name}</h3>
-        <h7>Location: {this.props.zoneName}</h7>
+        <div id="garden-name">{this.props.garden.name}</div>
+        <div className="garden-details">location: {this.props.zoneName}</div>
+        <div className="garden-details">
+          plant type: {this.props.garden.plantType}
+        </div>
       </div>
     )
   }

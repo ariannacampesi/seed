@@ -37,10 +37,10 @@ class GardenBox extends Component {
                 {this.props.garden.name}
               </div>
               <div className="single-garden-container-details">
-                Location: {zoneIndex.name}
+                location: {zoneIndex.name}
               </div>
               <div className="single-garden-container-details">
-                Created: {this.props.garden.createdAt.substring(0, 10)}
+                created: {this.props.garden.createdAt.substring(0, 10)}
               </div>
             </div>
           </div>

@@ -60,11 +60,12 @@ export const fetchPlant = id => {
 
 export const fetchPlantsInGarden = plants => {
   console.log('plants in store', Array.isArray(plants))
+  const justIds = plants.map(plant => plant.plantId)
   return async dispatch => {
     try {
       console.log('inside fetchPlantsInGarden try')
       const gardenPlants = await Promise.all(
-        plants.map(plant => axios.get(`/api/plants/${plant}`))
+        justIds.map(id => axios.get(`/api/plants/${id}`))
       )
       console.log('gardenPlants in store', gardenPlants)
       dispatch(getPlantsInGarden(gardenPlants))
@@ -74,11 +75,16 @@ export const fetchPlantsInGarden = plants => {
   }
 }
 
-export const fetchPlantsInZone = zone => {
-  const path = `/api/plants/in-zone/${zone}`
+export const fetchPlantsInZone = (zone, preference) => {
+  const path = `/api/plants/in-zone/${zone}/${preference}`
   return async dispatch => {
     try {
-      const {data} = await axios.get(path)
+      let {data} = await axios.get(path)
+      data = data.sort((a, b) => {
+        if (a.common_name < b.common_name) return -1
+        if (a.common_name > b.common_name) return 1
+        return 0
+      })
       dispatch(getPlantsInZone(data))
     } catch (err) {
       console.error(err)
@@ -111,6 +117,7 @@ export default function plantsReducer(state = initialState, action) {
     case GET_PLANTS_IN_GARDEN:
       return {
         ...state,
+        isLoadingPlants: false,
         gardenPlants: action.gardenPlants
       }
     case GET_PLANTS_IN_ZONE:

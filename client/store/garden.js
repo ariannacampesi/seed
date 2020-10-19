@@ -71,13 +71,13 @@ export const fetchGardenFromServer = gardenId => {
   }
 }
 
-export const addPlantToGardenOnServer = (gardenId, plantId) => {
+export const addPlantToGardenOnServer = (gardenId, plant) => {
   const path = `/api/gardens/${gardenId}`
   return async dispatch => {
     try {
       console.log('gardenId', gardenId)
-      console.log('plantId', plantId)
-      const {data} = await axios.put(path, plantId)
+      console.log('plant to add in store', plant)
+      const {data} = await axios.put(path, plant)
       console.log('data', data)
       dispatch(addPlantToGarden(data))
     } catch (err) {

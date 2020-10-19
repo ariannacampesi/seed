@@ -25,13 +25,39 @@ router.get('/edible', async (req, res, next) => {
   }
 })
 
-router.get('/in-zone/:distributionZone', async (req, res, next) => {
+router.get('/in-zone/:distributionZone/:plantType', async (req, res, next) => {
   try {
     const {distributionZone} = req.params
-    const plants = await axios.get(
-      `https://trefle.io/api/v1/distributions/${distributionZone}/plants?token=MgOw1yY9xOKD13YgA-xQmvMyqjPLZLYLmS2NWRaT0hc`
-    )
-    res.json(plants.data)
+    const {plantType} = req.params
+    let plants
+    let pages = [1, 2, 3, 4, 5]
+    if (plantType === 'edible') {
+      plants = await axios.get(
+        `https://trefle.io/api/v1/distributions/${distributionZone}/plants?token=MgOw1yY9xOKD13YgA-xQmvMyqjPLZLYLmS2NWRaT0hc`
+      )
+    } else {
+      plants = await axios.get(
+        `https://trefle.io/api/v1/distributions/${distributionZone}/plants?token=MgOw1yY9xOKD13YgA-xQmvMyqjPLZLYLmS2NWRaT0hc`
+      )
+    }
+    let plantLinks = plants.data
+    plants = plants.data.data
+    // console.log('plants after reassignemnt', plantLinks)
+    if (plantLinks.links.next !== 'undefined') {
+      let i = 0
+      while (plantLinks.links.next !== 'undefined' && i <= 10) {
+        let result = await axios.get(
+          'https://trefle.io' +
+            plantLinks.links.next +
+            '&token=MgOw1yY9xOKD13YgA-xQmvMyqjPLZLYLmS2NWRaT0hc'
+        )
+        await plants.push(...result.data.data)
+        if (plantLinks.links.next !== 'undefined') plantLinks = result.data
+        i++
+      }
+    }
+    console.log('plants in route', plants)
+    res.json(plants)
   } catch (err) {
     next(err)
   }

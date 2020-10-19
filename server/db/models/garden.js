@@ -22,7 +22,7 @@ const Garden = db.define('garden', {
     allowNull: false
   },
   plants: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    type: Sequelize.ARRAY(Sequelize.JSON),
     defaultValue: []
   }
 })

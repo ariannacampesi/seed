@@ -63,13 +63,39 @@ router.put('/:gardenId', async (req, res, next) => {
   try {
     const {gardenId} = req.params
     const foundGarden = await Garden.findByPk(+gardenId)
+    console.log('req.body', req.body)
     const {plantId} = req.body
-    console.log('foundGarden', foundGarden)
-    if (foundGarden.plants.includes(+plantId)) {
+    const {quantity} = req.body
+    const {coordinates} = req.body
+
+    if (
+      foundGarden.plants.find(plant => plant.plantId === plantId) !== undefined
+    ) {
       console.log('plant is already there!')
-    } else {
+      const existingPlant = foundGarden.plants.find(
+        plant => plant.plantId === plantId
+      )
+
+      const indexOfExistingPlant = foundGarden.plants.indexOf(existingPlant)
+
       await foundGarden.update({
-        plants: [...foundGarden.plants, plantId]
+        plants: foundGarden.plants.map((obj, index) => {
+          if (index === indexOfExistingPlant) {
+            return {
+              plantId: obj.plantId,
+              quantity: obj.quantity + 1,
+              coordinates: obj.coordinates,
+              name: obj.name
+            }
+          } else {
+            return obj
+          }
+        })
+      })
+    } else {
+      console.log('in the else statement')
+      await foundGarden.update({
+        plants: [...foundGarden.plants, req.body]
       })
     }
     res.json(foundGarden)

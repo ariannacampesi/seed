@@ -1,6 +1,7 @@
 const User = require('./user')
 const Garden = require('./garden')
 const DistributionZone = require('./distribution-zone')
+const Grid = require('./grid')
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -13,6 +14,9 @@ Garden.belongsTo(User)
 
 Garden.belongsTo(DistributionZone)
 DistributionZone.hasMany(Garden)
+
+Garden.hasOne(Grid)
+Grid.belongsTo(Garden)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

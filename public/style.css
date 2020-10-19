@@ -2,6 +2,13 @@ body {
   font-family: 'Alice', serif;
 }
 
+.loading {
+  font-family: 'Lato', sans-serif;
+  font-size: 40px;
+  text-align: center;
+  color: #ef6461;
+  font-weight: bold;
+}
 /* NAVBAR */
 
 #nav {
@@ -9,6 +16,7 @@ body {
   font-size: 20px;
   display: flex;
   justify-content: space-between;
+  border-bottom: solid thin gray;
 }
 
 a {
@@ -64,8 +72,10 @@ a {
 }
 
 #back-button {
+  font-family: 'Lato', sans-serif;
   font-size: 30px;
   margin-left: 20px;
+  border-radius: 20px 20px 20px 20px;
 }
 
 #plant-list {
@@ -76,15 +86,19 @@ a {
 }
 
 #plant-in-plant-list {
-  font-family: 'Alice', sans-serif;
   font-size: 20px;
   width: 250px;
   text-align: center;
   margin: 20px;
 }
 
+#plant-in-plant-list:hover {
+  color: #368156;
+}
+
 #plant-in-plant-list-name {
   padding-bottom: 10px;
+  font-family: 'Lato', sans-serif;
 }
 #plant-in-plant-list-img {
   border: thin solid black;
@@ -93,18 +107,65 @@ a {
   border-radius: 20px 20px 20px 20px;
 }
 
+#plant-in-plant-list-img:hover {
+  border: solid #368156;
+}
+
 #single-plant-view {
   font-size: 40px;
   margin: 20px;
 }
-#single-plant-view > img {
+
+.accordion {
+  width: 200%;
+  padding-right: 20px;
+  font-family: 'Lato', sans-serif;
+}
+
+.accordion > .card > .card-header {
+  background-color: #f9e784;
+}
+#single-plant-view-common_name {
+  padding-bottom: 20px;
+  font-family: 'Lato', sans-serif;
+}
+
+#single-plant-view-details > img {
   height: 300px;
   width: 300px;
   border-radius: 20px 20px 20px 20px;
 }
 
+#single-plant-view-details {
+  display: flex;
+}
+
+.btn-link {
+  font-weight: bold;
+  color: black !important;
+}
+
+li {
+  padding: 5px;
+}
+
+.accordion {
+  width: 350px;
+}
+
+#single-plant-view-specs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
 #add-to-garden-button {
   font-family: 'Lato', sans-serif;
+  border-radius: 20px 20px 20px 20px;
+  margin-top: 20px;
 }
 
 #successfully-added {
@@ -115,6 +176,8 @@ a {
 #go-to-garden-button {
   font-size: 30px;
   margin-left: 20px;
+  font-family: 'Lato', sans-serif;
+  border-radius: 20px 20px 20px 20px;
 }
 
 /* GARDEN  */
@@ -236,6 +299,14 @@ button {
   font-size: 40px;
 }
 
+#garden-created-and-button {
+  margin-left: 20px;
+}
+
+#garden-created {
+  font-family: 'Lato', sans-serif;
+}
+
 /* SINGLE-GARDEN IN MY GARDENS COLLECTION*/
 .single-garden-container-details {
   padding-bottom: 20px;
@@ -273,9 +344,10 @@ button {
 }
 
 #my-gardens-title {
-  font-family: 'Alice', serif;
+  font-family: 'Lato', sans-serif;
   color: #ef6461;
   font-size: 30px;
+  font-weight: bold;
   text-align: center;
   margin: 20px;
 }
@@ -298,10 +370,10 @@ table {
 
 td {
   text-align: center;
-  height: 1px;
-  width: 1px;
+  height: 2rem;
+  width: 2rem;
   background-color: white;
-  /* border: thin solid gray; */
+  border: thin solid gray;
 }
 
 td:hover {
@@ -317,12 +389,14 @@ a {
 
 #single-garden-view {
   display: flex;
+  padding: 20px;
 }
 
 #single-garden-details-div {
   margin-left: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
 }
 
 #garden-title {
@@ -330,9 +404,23 @@ a {
   font-size: 30px;
 }
 
+#garden-name {
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.garden-details {
+  font-size: 25px;
+  margin-top: 10px;
+}
+
+.plants-in-garden {
+  padding-top: 5px;
+}
 #grid-details {
   display: flex;
   justify-content: space-evenly;
+  padding: 40px;
 }
 
 #details {
@@ -346,6 +434,7 @@ a {
   font-family: 'Lato', sans-serif;
   font-size: 20px;
   margin-top: 20px;
+  border-radius: 20px 20px 20px 20px;
 }
 /* LOCATION FORM */
 #location-form {
@@ -365,4 +454,35 @@ a {
   margin: 20px;
   font-size: 40px;
   border-radius: 20px 20px 20px 20px;
+}
+
+/* TRANSITIONS */
+.roll-appear {
+  opacity: 0;
+}
+.roll-enter {
+  opacity: 0;
+}
+
+.roll-enter-done {
+  margin: 0px;
+  opacity: 1;
+  transition: transform 1000ms, opacity 1000ms;
+}
+
+.roll-exit {
+  opacity: 1;
+}
+
+.roll-exit-active {
+  opacity: 0;
+  transition: transform 1000ms, opacity 1000ms;
+}
+
+.active {
+  background-color: green;
+}
+
+.inactive {
+  background-color: beige;
 }

@@ -7,6 +7,7 @@ import {createGardenOnServer} from '../../store/garden'
 import {connect} from 'react-redux'
 import Grid from './SingleView/Grid'
 import {Redirect} from 'react-router-dom'
+import {CSSTransition} from 'react-transition-group'
 
 class NewGarden extends Component {
   constructor() {
@@ -266,20 +267,29 @@ class NewGarden extends Component {
     console.log('in render', this.props)
     if (this.state.submitted === true && this.state.addPlants === false) {
       return (
-        <div>
-          <h1>
-            {this.props.garden.name} in {this.props.distributionZone.name}{' '}
-            created!
-          </h1>
-          <button
-            type="button"
-            className="add-plants-button"
-            onClick={this.handleClick}
-          >
-            Add Plants
-          </button>
-          <Grid size={this.state.size} />
-        </div>
+        <CSSTransition
+          in={true}
+          timeout={{appear: 0, enter: 0, exit: 300}}
+          classNames="roll"
+          appear
+        >
+          <div>
+            <div id="garden-created-and-button">
+              <h1 id="garden-created">
+                {this.props.garden.name} in {this.props.distributionZone.name}{' '}
+                created!
+              </h1>
+              <button
+                type="button"
+                className="add-plants-button"
+                onClick={this.handleClick}
+              >
+                Add Plants
+              </button>
+            </div>
+            {/* <Grid size={this.state.size} /> */}
+          </div>
+        </CSSTransition>
       )
     } else if (this.state.submitted === true && this.state.addPlants === true) {
       return (
@@ -298,59 +308,72 @@ class NewGarden extends Component {
     const {currentQuestion} = this.state
     if (currentQuestion.title === 'Get Started') {
       return (
-        <div id="get-started-container">
-          <button
-            id="get-started-button"
-            type="button"
-            onClick={this.handleNext}
-          >
-            {currentQuestion.title}
-          </button>
-        </div>
+        <CSSTransition
+          in={true}
+          timeout={{appear: 0, enter: 0, exit: 300}}
+          classNames="roll"
+          appear
+        >
+          <div id="get-started-container">
+            <button
+              id="get-started-button"
+              type="button"
+              onClick={this.handleNext}
+            >
+              {currentQuestion.title}
+            </button>
+          </div>
+        </CSSTransition>
       )
     } else {
       return (
-        <form onSubmit={this.handleSubmit}>
-          {currentQuestion.title !== 'Submit' ? (
-            <div id="questionaire">
-              <div>{currentQuestion.return}</div>
-              <div className="next-previous">
-                <button
-                  type="button"
-                  name={currentQuestion.title}
-                  onClick={this.handleNext}
-                >
-                  {currentQuestion.buttonTextNext}
-                </button>
-              </div>
-
-              {currentQuestion.title !== 'Question1' ? (
+        <CSSTransition
+          in={true}
+          timeout={{appear: 0, enter: 0, exit: 300}}
+          classNames="roll"
+          appear
+        >
+          <form onSubmit={this.handleSubmit}>
+            {currentQuestion.title !== 'Submit' ? (
+              <div id="questionaire">
+                <div>{currentQuestion.return}</div>
                 <div className="next-previous">
                   <button
                     type="button"
                     name={currentQuestion.title}
-                    onClick={this.handlePrev}
+                    onClick={this.handleNext}
                   >
-                    {currentQuestion.buttonTextPrev}
+                    {currentQuestion.buttonTextNext}
                   </button>
                 </div>
-              ) : (
-                <div />
-              )}
-            </div>
-          ) : (
-            <div id="submit-answers">
-              <div>
-                <button type="submit">Finish</button>
+                {currentQuestion.title !== 'Question1' ? (
+                  <div className="next-previous">
+                    <button
+                      type="button"
+                      name={currentQuestion.title}
+                      onClick={this.handlePrev}
+                    >
+                      {currentQuestion.buttonTextPrev}
+                    </button>
+                  </div>
+                ) : (
+                  <div />
+                )}
               </div>
-              <div>
-                <button type="button" onClick={this.handlePrev}>
-                  Go Back
-                </button>
+            ) : (
+              <div id="submit-answers">
+                <div>
+                  <button type="submit">Finish</button>
+                </div>
+                <div>
+                  <button type="button" onClick={this.handlePrev}>
+                    Go Back
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
-        </form>
+            )}
+          </form>
+        </CSSTransition>
       )
     }
   }
