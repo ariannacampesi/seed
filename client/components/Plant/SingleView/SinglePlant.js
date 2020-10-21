@@ -35,7 +35,8 @@ class SinglePlant extends Component {
       plantId: +this.props.id,
       quantity: 1,
       coordinates: this.props.cellId,
-      name: this.props.plant.common_name
+      name: this.props.plant.common_name,
+      status: this.props.cellStatus
     }
     await this.props.addPlantToGarden(this.props.gardenId, plant)
     this.setState({addPlants: true})
@@ -108,11 +109,11 @@ class SinglePlant extends Component {
                     </Accordion.Collapse>
                   </Card>
                   <Card>
-                    <Card.Header>
+                    {/* <Card.Header>
                       <Accordion.Toggle as={Button} variant="link" eventKey="3">
                         how to grow
                       </Accordion.Toggle>
-                    </Card.Header>
+                    </Card.Header> */}
                     <Accordion.Collapse eventKey="3">
                       <Card.Body>body</Card.Body>
                     </Accordion.Collapse>

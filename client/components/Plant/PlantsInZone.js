@@ -51,6 +51,7 @@ const PlantsInZone = props => {
                   gardenId={props.history.location.state.gardenId}
                   preference={props.location.state.preference}
                   cellId={props.location.state.cellId}
+                  cellStatus={props.location.state.cellStatus}
                 />
               </div>
             </CSSTransition>

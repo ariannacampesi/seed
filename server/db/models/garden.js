@@ -8,14 +8,14 @@ const Garden = db.define('garden', {
   },
   size: {
     type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      customValidator(size) {
-        if (size < 150) {
-          throw new Error('Space has to be at least 150 square feet.')
-        }
-      }
-    }
+    allowNull: false
+    // validate: {
+    //   customValidator(size) {
+    //     if (size < 150) {
+    //       throw new Error('Space has to be at least 150 square feet.')
+    //     }
+    //   }
+    //}
   },
   plantType: {
     type: Sequelize.ENUM('edible', 'non-edible', 'both'),

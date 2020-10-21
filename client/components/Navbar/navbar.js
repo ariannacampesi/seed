@@ -21,9 +21,9 @@ const Navbar = ({handleClick, isLoggedIn}) => {
           <Link to="/new-garden" className="nav-link">
             create garden
           </Link>
-          <Link to="/plants/in-zone" className="nav-link">
+          {/* <Link to="/plants/in-zone" className="nav-link">
             browse plants
-          </Link>
+          </Link> */}
           <Link to="#" className="nav-link" onClick={handleClick}>
             logout
           </Link>

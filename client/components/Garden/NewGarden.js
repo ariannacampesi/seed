@@ -17,7 +17,7 @@ class NewGarden extends Component {
         title: 'Get Started'
       },
       distributionZoneId: '1',
-      size: 150,
+      size: 4,
       plantType: 'edible',
       name: '',
       submitted: false,

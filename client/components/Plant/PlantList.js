@@ -21,7 +21,7 @@ class PlantList extends Component {
   }
 
   render() {
-    console.log('this.props.celLId in PlantList', this.props.cellId)
+    console.log('this.props.celLId in PlantList', this.props)
     while (this.state.loading === true)
       return (
         <div>
@@ -35,12 +35,15 @@ class PlantList extends Component {
         'this.props.plants.map',
         this.props.plants.map(plant => plant)
       )
+      const filtered = this.props.plants.filter(
+        (v, i, a) => a.findIndex(t => t.id === v.id && t.id === v.id) === i
+      )
       return (
         <div id="plant-list">
-          {this.props.plants.map((plant, index) => (
+          {filtered.map(plant => (
             <div
               id="plant-in-plant-list"
-              key={index}
+              key={plant.id}
               onClick={() =>
                 this.setState({
                   singlePlantView: true,
@@ -75,6 +78,7 @@ class PlantList extends Component {
             id={this.state.singlePlantId}
             gardenId={this.props.gardenId}
             cellId={this.props.cellId}
+            cellStatus={this.props.cellStatus}
           />
         </div>
       )

@@ -14,7 +14,8 @@ class SingleGardenView extends Component {
     this.state = {
       addPlants: false,
       plantsInGarden: [],
-      cellId: ''
+      cellId: '',
+      cellStatus: 'inactive'
     }
     this.handleClick = this.handleClick.bind(this)
   }
@@ -30,7 +31,11 @@ class SingleGardenView extends Component {
   }
 
   handleClick(event) {
-    this.setState({addPlants: true, cellId: event.target.id})
+    this.setState({
+      addPlants: true,
+      cellId: event.target.id,
+      cellStatus: 'active'
+    })
     console.log('the id of the cell clicked is', event.target.id)
   }
 
@@ -63,13 +68,16 @@ class SingleGardenView extends Component {
           <div>
             <div id="single-garden-view">
               <div id="single-garden-details-div">
-                <GardenDetails garden={this.props.garden} zoneName="La" />
+                <GardenDetails
+                  garden={this.props.garden}
+                  zoneName={this.props.distributionZone.name}
+                />
                 <div className="plants-in-garden">plants in garden:</div>
                 {this.props.garden.plants.length > 0 ? (
                   <div>
                     {this.props.gardenPlants.map((plant, index) => (
                       <li key={index} className="plants-in-garden">
-                        {plant.data.common_name}
+                        {plant.data.common_name.toLowerCase()}
                       </li>
                     ))}
                   </div>
@@ -104,7 +112,8 @@ class SingleGardenView extends Component {
               // preference: this.props.location.state.garden.plantType,
               gardenId: this.props.garden.id,
               chooseDifferentLocation: false,
-              cellId: this.state.cellId
+              cellId: this.state.cellId,
+              cellStatus: this.state.cellStatus
             }
           }}
         />

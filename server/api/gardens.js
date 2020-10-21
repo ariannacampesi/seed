@@ -90,7 +90,8 @@ router.put('/:gardenId', async (req, res, next) => {
               plantId: req.body.plantId,
               quantity: 1,
               coordinates: req.body.coordinates,
-              name: req.body.name
+              name: req.body.name,
+              status: req.body.cellStatus
             }
           } else {
             return obj

@@ -29,6 +29,15 @@ const Grid = props => {
     tr.push(<tr key={r}>{td}</tr>)
   }
 
+  // console.log('TR ', tr)
+  // const trProps = tr.map((element) => element.props)
+  // console.log('TR PROPS', trProps)
+  // const trChildren = trProps.map((props) => props.children)
+  // console.log('TR CHILDREN', trChildren)
+  // const trChildrenProps = trChildren.map((child) => child)
+  // console.log('TR CHILDREN PROPS', trChildrenProps)
+  // const trChildrenPropsArray = trChildrenProps.map((prop) => prop)
+  // console.log('TR CHILDREN PROPS ARRAY', trChildrenPropsArray)
   return (
     <div id="grid-details">
       <table>

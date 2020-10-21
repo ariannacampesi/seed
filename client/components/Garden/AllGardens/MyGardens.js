@@ -24,7 +24,7 @@ class MyGardens extends Component {
         appear
       >
         <div>
-          <h4 id="my-gardens-title">My Gardens</h4>
+          <h4 id="my-gardens-title">my gardens</h4>
           <div id="my-gardens">
             {gardens.map((garden, index) => (
               <GardenBox key={index} garden={garden} index={index} />
