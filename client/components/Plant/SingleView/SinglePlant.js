@@ -14,7 +14,8 @@ class SinglePlant extends Component {
     this.state = {
       addPlants: false,
       loading: true,
-      goToGarden: false
+      goToGarden: false,
+      goBackToPlants: false
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleGoToGarden = this.handleGoToGarden.bind(this)

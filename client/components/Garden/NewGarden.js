@@ -363,11 +363,11 @@ class NewGarden extends Component {
             ) : (
               <div id="submit-answers">
                 <div>
-                  <button type="submit">Finish</button>
+                  <button type="submit">finish</button>
                 </div>
                 <div>
                   <button type="button" onClick={this.handlePrev}>
-                    Go Back
+                    go back
                   </button>
                 </div>
               </div>

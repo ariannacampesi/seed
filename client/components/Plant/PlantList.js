@@ -63,14 +63,14 @@ class PlantList extends Component {
     } else {
       return (
         <div>
-          {/* <button
+          <button
             type="button"
             id="back-button"
             onClick={() => this.setState({singlePlantView: false})}
           >
             {' '}
-            {'<'} go back
-          </button> */}
+            {'<'} changed mind
+          </button>
           <SinglePlant
             id={this.state.singlePlantId}
             gardenId={this.props.gardenId}

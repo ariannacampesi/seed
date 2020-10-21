@@ -8,8 +8,8 @@ const Grid = props => {
   let {gardenPlants} = props
   console.log('gardenPlants', gardenPlants)
   let squareRoot = Math.floor(Math.sqrt(size)) //12.24
-  let rows = squareRoot
-  let columns = squareRoot
+  let rows = 4
+  let columns = 4
 
   const tr = []
   for (let r = 0; r < rows; r++) {
@@ -20,7 +20,7 @@ const Grid = props => {
           {gardenPlants.map(
             plant =>
               plant.coordinates && plant.coordinates === `${r},${c}`
-                ? plant.name
+                ? plant.name.toLowerCase()
                 : ''
           )}
         </td>
