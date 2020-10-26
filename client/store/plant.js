@@ -27,10 +27,11 @@ const getPlantsInGarden = gardenPlants => {
   }
 }
 
-const getPlantsInZone = plants => {
+const getPlantsInZone = (plants, zone) => {
   return {
     type: GET_PLANTS_IN_ZONE,
-    plants
+    plants,
+    zone
   }
 }
 //THUNK CREATOR
@@ -59,6 +60,7 @@ export const fetchPlant = id => {
 }
 
 export const fetchPlantsInGarden = plants => {
+  console.log(plants)
   console.log('plants in store', Array.isArray(plants))
   const justIds = plants.map(plant => plant.plantId)
   return async dispatch => {
@@ -75,8 +77,8 @@ export const fetchPlantsInGarden = plants => {
   }
 }
 
-export const fetchPlantsInZone = (zone, preference) => {
-  const path = `/api/plants/in-zone/${zone}/${preference}`
+export const fetchPlantsInZone = zone => {
+  const path = `/api/plants/in-zone/${zone}`
   return async dispatch => {
     try {
       let {data} = await axios.get(path)
@@ -85,7 +87,7 @@ export const fetchPlantsInZone = (zone, preference) => {
         if (a.common_name > b.common_name) return 1
         return 0
       })
-      dispatch(getPlantsInZone(data))
+      dispatch(getPlantsInZone(data, zone))
     } catch (err) {
       console.error(err)
     }
@@ -94,7 +96,6 @@ export const fetchPlantsInZone = (zone, preference) => {
 //REDUCER
 const initialState = {
   isLoadingPlants: true,
-  isLoadingSinglePlant: true,
   plant: {},
   plants: [],
   gardenPlants: []
@@ -124,7 +125,7 @@ export default function plantsReducer(state = initialState, action) {
       return {
         ...state,
         isLoadingPlants: false,
-        plants: action.plants
+        plants: [...state.plants, {zone: action.zone, plants: action.plants}]
       }
     default:
       return state

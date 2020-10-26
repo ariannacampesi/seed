@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {logout} from '../../store'
 import logo from '../../../public/8052823be0fc380beda00fb8b79c5280.png'
 import {Link} from 'react-router-dom'
+import {Link as link, animateScroll as scroll} from 'react-scroll'
 
 const Navbar = ({handleClick, isLoggedIn}) => {
   return (

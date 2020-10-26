@@ -7,7 +7,7 @@ const Garden = db.define('garden', {
     allowNull: false
   },
   size: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false
     // validate: {
     //   customValidator(size) {

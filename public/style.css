@@ -2,12 +2,46 @@ body {
   font-family: 'Alice', serif;
 }
 
-.loading {
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 1.2rem;
+}
+
+#login-form input {
+  border: thin solid black;
+  font-family: 'Alice', serif !important;
+  font-size: 1.2rem !important;
+}
+
+.field {
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+}
+
+#login-button {
+  border-radius: 10px 10px 10px 10px;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  font-family: 'Alice', serif;
+}
+
+#with-google {
+  font-family: 'Alice', serif;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+h1.loading {
   font-family: 'Lato', sans-serif;
-  font-size: 40px;
+  font-size: 1rem;
   text-align: center;
   color: #ef6461;
   font-weight: bold;
+  margin-top: 5rem;
 }
 /* NAVBAR */
 
@@ -118,7 +152,14 @@ a {
 
 .accordion > .card > .card-header {
   background-color: #f9e784;
+  text-align: center;
+  font-size: 1rem;
 }
+
+.card {
+  margin-left: 3%;
+}
+
 #single-plant-view-common_name {
   font-family: 'Lato', sans-serif;
 }
@@ -149,15 +190,16 @@ li {
 #single-plant-view-specs {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  font-size: 16px;
-  margin-left: 20px;
+  font-size: 1rem;
+  margin-left: 2%;
 }
 
 #add-to-garden-button {
   font-family: 'Lato', sans-serif;
   border-radius: 20px 20px 20px 20px;
-  margin-top: 20px;
+  margin-bottom: 5%;
+  width: 10rem;
+  margin-left: 3%;
 }
 
 #successfully-added {
@@ -166,7 +208,6 @@ li {
 }
 
 #go-to-garden-button {
-  font-size: 30px;
   margin-left: 20px;
   font-family: 'Lato', sans-serif;
   border-radius: 20px 20px 20px 20px;
@@ -210,19 +251,14 @@ label {
   font-size: 40px;
   width: 400px;
   align-self: center;
+  border: thin solid black;
+  border-radius: 10px 10px 10px 10px;
 }
 
 #Question2 {
   display: flex;
   flex-direction: column;
   text-align: center;
-}
-
-#size-input {
-  font-size: 40px;
-  width: 90px;
-  margin: 20px;
-  font-family: 'Alice', serif;
 }
 
 #Question3 {
@@ -236,6 +272,8 @@ label {
   font-size: 40px;
   align-self: center;
   margin: 20px;
+  border: thin solid black;
+  border-radius: 10px 10px 10px 10px;
 }
 
 #Question4 {
@@ -249,6 +287,8 @@ label {
   margin: 20px;
   font-family: 'Alice', serif;
   text-align: center;
+  border: thin solid black;
+  border-radius: 10px 10px 10px 10px;
 }
 
 button {
@@ -258,6 +298,24 @@ button {
   color: white;
   border: solid thin #368156;
   margin: 2px;
+}
+
+#fourByFour,
+#eightByFour {
+  font-size: 40px;
+  width: 7rem;
+  margin: 20px;
+  font-family: 'Alice', serif;
+  background-color: lightgray;
+  border: none;
+  border-radius: 20px 20px 20px 20px;
+  color: black;
+}
+
+#fourByFour:focus,
+#eightByFour:focus {
+  background-color: #ef6461;
+  color: white;
 }
 
 #submit-answers {
@@ -314,8 +372,8 @@ button {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  width: 250px;
-  height: 250px;
+  width: 15rem;
+  height: 15rem;
   /* border-radius: 20px 20px 20px 20px; */
   background-color: #368156;
 }
@@ -325,13 +383,20 @@ button {
   font-weight: bold;
 }
 
+#garden-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #my-gardens {
   font-family: 'Lato', sans-serif;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
 }
 
 #my-gardens-title {
@@ -345,6 +410,19 @@ button {
 
 #single-garden {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#edit-gardens-div {
+  display: flex;
+  justify-content: center;
+}
+
+#delete-garden-button {
+  background: gray;
+  width: 15rem;
+  border: thin solid gray;
 }
 
 #grid {
@@ -384,13 +462,14 @@ a {
   display: flex;
   padding: 20px;
   justify-content: space-evenly;
+  align-items: flex-start;
 }
 
 #single-garden-details-div {
   margin-left: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
 }
 
 #garden-title {
@@ -403,12 +482,12 @@ a {
 }
 
 .garden-details {
-  font-size: 25px;
-  margin-top: 10px;
+  font-size: 1.5rem;
 }
 
 .plants-in-garden {
   padding-top: 5px;
+  display: flex;
 }
 #grid-details {
   display: flex;
@@ -460,6 +539,7 @@ a {
   margin: 0px;
   opacity: 1;
   transition: transform 1000ms, opacity 1000ms;
+  padding-bottom: 25%;
 }
 
 .roll-exit {
@@ -473,4 +553,47 @@ a {
 
 .active {
   background-color: #368156;
+}
+
+@media screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3),
+  screen and (min-device-width: 375px) and (max-device-width: 667px) {
+  #my-gardens {
+    width: 100%;
+  }
+
+  #nav {
+    display: inline;
+  }
+
+  #links {
+    width: 100%;
+    text-align: center;
+    display: inline;
+  }
+
+  #seed {
+    display: flex;
+    justify-content: center;
+  }
+
+  #grid-details {
+    display: inline;
+  }
+
+  #single-garden-view {
+    display: inline;
+    padding: 0px;
+  }
+
+  #details {
+    text-align: center;
+  }
+
+  #Question1 {
+    font-size: 100%;
+  }
+
+  .location-select {
+    font-size: 100%;
+  }
 }

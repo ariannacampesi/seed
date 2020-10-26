@@ -1,23 +1,29 @@
 import React, {Component} from 'react'
 import Grid from './Grid'
-import {fetchGardenFromServer} from '../../../store/garden'
+import {
+  fetchGardenFromServer,
+  removePlantFromGardenOnServer
+} from '../../../store/garden'
 import {fetchDistributionZoneFromServer} from '../../../store/location'
 import {fetchPlantsInGarden} from '../../../store/plant'
 import {connect} from 'react-redux'
 import GardenDetails from './GardenDetails'
 import {Redirect} from 'react-router-dom'
 import {CSSTransition} from 'react-transition-group'
+import {Accordion, Card, Button} from 'react-bootstrap'
 
 class SingleGardenView extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       addPlants: false,
       plantsInGarden: [],
       cellId: '',
-      cellStatus: 'inactive'
+      cellStatus: 'inactive',
+      plantDeleted: false
     }
     this.handleClick = this.handleClick.bind(this)
+    this.handleDeletePlant = this.handleDeletePlant.bind(this)
   }
 
   async componentDidMount() {
@@ -34,9 +40,24 @@ class SingleGardenView extends Component {
     this.setState({
       addPlants: true,
       cellId: event.target.id,
-      cellStatus: 'active'
+      cellStatus: 'active',
+      update: false
     })
     console.log('the id of the cell clicked is', event.target.id)
+  }
+
+  handleDeletePlant(event) {
+    this.updateState(event.target.value)
+    this.props.deletePlantFromGarden(this.props.garden.id, event.target.value)
+  }
+
+  updateState(coordinates) {
+    let index = this.props.garden.plants.findIndex(
+      plant => plant.coordinates === coordinates
+    )
+    this.props.garden.plants.splice(index, 1)
+    const data = this.props.garden.plants
+    this.setState({plants: data, update: !this.state.update})
   }
 
   render() {
@@ -72,20 +93,46 @@ class SingleGardenView extends Component {
                   garden={this.props.garden}
                   zoneName={this.props.distributionZone.name}
                 />
-                <div className="plants-in-garden">plants in garden:</div>
-                {this.props.garden.plants.length > 0 ? (
-                  <div>
-                    {this.props.gardenPlants.map((plant, index) => (
-                      <li key={index} className="plants-in-garden">
-                        {plant.data.common_name.toLowerCase()}
-                      </li>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="plants-in-garden">
-                    currently no plants in this garden
-                  </div>
-                )}
+                <div id="single-plant-view-specs">
+                  <Accordion defaultActiveKey="0">
+                    <Card>
+                      <Card.Header>
+                        <Accordion.Toggle
+                          as={Button}
+                          variant="link"
+                          eventKey="1"
+                        >
+                          plants in garden
+                        </Accordion.Toggle>
+                      </Card.Header>
+                      <Accordion.Collapse eventKey="1">
+                        <Card.Body>
+                          {this.props.garden.plants.length > 0 ? (
+                            <div>
+                              {this.props.garden.plants.map((plant, index) => (
+                                <div key={index} className="plants-in-garden">
+                                  <li>{plant.name.toLowerCase()}</li>
+                                  <button
+                                    type="button"
+                                    onClick={this.handleDeletePlant}
+                                    value={plant.coordinates}
+                                  >
+                                    x
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <div>
+                              There are currently no plants in this garden.
+                              Click any box to start adding plants.
+                            </div>
+                          )}
+                        </Card.Body>
+                      </Accordion.Collapse>
+                    </Card>
+                  </Accordion>
+                </div>
                 {/* <button
                   type="button"
                   className="add-plants-button"
@@ -98,6 +145,8 @@ class SingleGardenView extends Component {
                 size={this.props.garden.size}
                 props={this.handleClick}
                 gardenPlants={this.props.garden.plants}
+                handleDelete={this.handleDeletePlant}
+                update={this.state.update}
               />
             </div>
           </div>
@@ -109,7 +158,6 @@ class SingleGardenView extends Component {
           to={{
             pathname: `/plants/in-zone/${this.props.distributionZone.twdgCode}`,
             state: {
-              // preference: this.props.location.state.garden.plantType,
               gardenId: this.props.garden.id,
               chooseDifferentLocation: false,
               cellId: this.state.cellId,
@@ -137,7 +185,9 @@ const mapDispatch = dispatch => {
   return {
     getGarden: id => dispatch(fetchGardenFromServer(id)),
     getDistributionZone: id => dispatch(fetchDistributionZoneFromServer(id)),
-    getPlantsInGarden: plants => dispatch(fetchPlantsInGarden(plants))
+    getPlantsInGarden: plants => dispatch(fetchPlantsInGarden(plants)),
+    deletePlantFromGarden: (gardenId, coordinates) =>
+      dispatch(removePlantFromGardenOnServer(gardenId, coordinates))
   }
 }
 

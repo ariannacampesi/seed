@@ -3,13 +3,14 @@ import {connect} from 'react-redux'
 import {fetchPlant} from '../../../store/plant'
 
 const Grid = props => {
-  const {size} = props
+  const size = JSON.parse(props.size)
   console.log('props in Grid', props)
   let {gardenPlants} = props
   console.log('gardenPlants', gardenPlants)
-  let squareRoot = Math.floor(Math.sqrt(size)) //12.24
-  let rows = 4
-  let columns = 4
+  let rows = size.rows
+  let columns = size.columns
+
+  const [update, setUpdate] = useState(props.update)
 
   const tr = []
   for (let r = 0; r < rows; r++) {
@@ -38,14 +39,28 @@ const Grid = props => {
   // console.log('TR CHILDREN PROPS', trChildrenProps)
   // const trChildrenPropsArray = trChildrenProps.map((prop) => prop)
   // console.log('TR CHILDREN PROPS ARRAY', trChildrenPropsArray)
-  return (
+  return !update ? (
     <div id="grid-details">
       <table>
         <tbody id="grid">{tr}</tbody>
       </table>
       <div id="details">
-        <div>Total Square Footage: {props.size}</div>
-        <div>Remaining Square Footage</div>
+        <div>Total Square Footage: {rows * columns}</div>
+        <div>
+          Remaining Square Footage: {rows * columns - gardenPlants.length}
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div id="grid-details">
+      <table>
+        <tbody id="grid">{tr}</tbody>
+      </table>
+      <div id="details">
+        <div>Total Square Footage: {rows * columns}</div>
+        <div>
+          Remaining Square Footage: {rows * columns - gardenPlants.length}
+        </div>
       </div>
     </div>
   )

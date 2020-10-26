@@ -4,13 +4,14 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 
 class GardenBox extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       singleGardenView: false
     }
     this.handleClick = this.handleClick.bind(this)
   }
+
   componentDidMount() {
     this.props.getDistributionZones()
   }
@@ -18,6 +19,7 @@ class GardenBox extends Component {
   handleClick() {
     this.setState({singleGardenView: true})
   }
+
   render() {
     const zoneIndex = this.props.distributionZones.find(
       zone => zone.id === this.props.garden.distributionZoneId
@@ -31,16 +33,21 @@ class GardenBox extends Component {
     ) {
       return (
         <div id="single-garden">
-          <div onClick={this.handleClick}>
-            <div id="single-garden-container">
-              <div className="single-garden-container-details">
-                {this.props.garden.name}
-              </div>
-              <div className="single-garden-container-details">
-                location: {zoneIndex.name}
-              </div>
-              <div className="single-garden-container-details">
-                created: {this.props.garden.createdAt.substring(0, 10)}
+          <div>
+            <div onClick={this.handleClick}>
+              <div id="single-garden-container">
+                <div className="single-garden-container-details">
+                  {this.props.garden.name}
+                </div>
+                <div className="single-garden-container-details">
+                  location: {zoneIndex.name}
+                </div>
+                <div className="single-garden-container-details">
+                  created:{' '}
+                  {this.props.garden.createdAt.substring(5, 10) +
+                    '-' +
+                    this.props.garden.createdAt.substring(0, 4)}
+                </div>
               </div>
             </div>
           </div>
@@ -71,7 +78,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getDistributionZones: () => dispatch(fetchDistributionZonesFromServer())
+    getDistributionZones: () => dispatch(fetchDistributionZonesFromServer()),
+    deleteGarden: gardenId => dispatch(removeGardenFromServer(gardenId))
   }
 }
 

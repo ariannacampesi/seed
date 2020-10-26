@@ -1,3 +1,5 @@
+const zones = require('../../../script/distribution-zones')
+
 const plantList = [
   {id: 167021, commonName: 'hey'},
   {id: 167021},
@@ -12,4 +14,8 @@ const filtered = plantList.filter(
   (v, i, a) => a.findIndex(t => t.id === v.id && t.id === v.id) === i
 )
 
-console.log('filtered', filtered)
+const filteredZones = zones.filter(
+  (v, i, a) => a.findIndex(t => t.name === v.name && t.name === v.name) === i
+)
+
+console.log('filteredZones', filteredZones)

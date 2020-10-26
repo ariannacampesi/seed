@@ -32,10 +32,7 @@ const PlantsInZone = props => {
                 >
                   Change Location
                 </button>
-                <PlantList
-                  zone={props.match.params.locationId}
-                  preference={props.location.state.preference}
-                />
+                <PlantList zone={props.match.params.locationId} />
               </div>
             </CSSTransition>
           ) : (
@@ -49,7 +46,6 @@ const PlantsInZone = props => {
                 <PlantList
                   zone={props.match.params.locationId}
                   gardenId={props.history.location.state.gardenId}
-                  preference={props.location.state.preference}
                   cellId={props.location.state.cellId}
                   cellStatus={props.location.state.cellStatus}
                 />

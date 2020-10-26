@@ -83,6 +83,15 @@ class SinglePlant extends Component {
             <div id="single-plant-view-details">
               <img src={plant.image_url} height={40} width={40} />
               <div id="single-plant-view-specs">
+                <button
+                  type="button"
+                  id="add-to-garden-button"
+                  value={plant.id}
+                  onClick={this.handleClick}
+                >
+                  {' '}
+                  + add to garden
+                </button>
                 <Accordion defaultActiveKey="0">
                   <Card>
                     <Card.Header>
@@ -119,17 +128,6 @@ class SinglePlant extends Component {
                     </Accordion.Collapse>
                   </Card>
                 </Accordion>
-                <div>
-                  <button
-                    type="button"
-                    id="add-to-garden-button"
-                    value={plant.id}
-                    onClick={this.handleClick}
-                  >
-                    {' '}
-                    + add to garden
-                  </button>
-                </div>
               </div>
             </div>
           </div>
@@ -152,7 +150,7 @@ class SinglePlant extends Component {
               id="go-to-garden-button"
               onClick={this.handleGoToGarden}
             >
-              > go to garden >
+              go to garden >
             </button>
           </div>
         </CSSTransition>

@@ -44,6 +44,7 @@ router.get('/:gardenId', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  console.log('req.body in route', req.body)
   try {
     const userId = req.user.dataValues.id
     const garden = await Garden.create({
@@ -105,6 +106,45 @@ router.put('/:gardenId', async (req, res, next) => {
       })
     }
     res.json(foundGarden)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:gardenId', async (req, res, next) => {
+  try {
+    const foundGarden = await Garden.findByPk(req.params.gardenId)
+    if (foundGarden) {
+      const deletedGarden = await Garden.destroy({
+        where: {
+          id: foundGarden.id
+        }
+      })
+      res.status(204)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/plant/:gardenId', async (req, res, next) => {
+  try {
+    const {gardenId} = req.params
+    const foundGarden = await Garden.findByPk(+gardenId)
+    const {coordinates} = req.body
+
+    const existingPlant = foundGarden.plants.find(
+      plant => plant.coordinates === coordinates
+    )
+
+    const indexOfExistingPlant = foundGarden.plants.indexOf(existingPlant)
+    console.log('foudnGarden.plants before splice', foundGarden.plants)
+
+    foundGarden.plants.splice(indexOfExistingPlant, 1)
+
+    await foundGarden.update({plants: foundGarden.plants})
+    console.log('foudnGarden.plants after splice', foundGarden.plants)
+    res.status(204)
   } catch (err) {
     next(err)
   }

@@ -1,4 +1,4 @@
-const zones = [
+const nonFilteredZones = [
   {order: 1, level: 1, twdgCode: '1', name: 'Europe'},
   {order: 2, level: 2, twdgCode: '10', name: 'Northern Europe'},
   {order: 3, level: 3, twdgCode: 'DEN', name: 'Denmark'},
@@ -770,5 +770,9 @@ const zones = [
   {order: 744, level: 2, twdgCode: '91', name: 'Antarctic Continent'},
   {order: 745, level: 3, twdgCode: 'ANT', name: 'Antarctica'}
 ]
+
+const zones = nonFilteredZones.filter(
+  (v, i, a) => a.findIndex(t => t.name === v.name && t.name === v.name) === i
+)
 
 module.exports = zones

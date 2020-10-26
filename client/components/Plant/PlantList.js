@@ -1,7 +1,8 @@
-import React, {Component} from 'react'
+import React, {Component, useEffect} from 'react'
 import {fetchPlantsInZone} from '../../store/plant'
 import {connect} from 'react-redux'
 import {SinglePlant} from '../index'
+import useLocalStorageState from 'use-local-storage-state'
 
 class PlantList extends Component {
   constructor() {
@@ -9,20 +10,40 @@ class PlantList extends Component {
     this.state = {
       singlePlantView: false,
       singlePlantId: '',
+      dataStored: false,
+      index: 0,
+      storedPlants: [],
       loading: true
     }
   }
-  componentDidMount() {
+
+  async componentDidMount() {
     const {zone} = this.props
-    const {preference} = this.props
-    console.log('zone in plant-list', zone)
-    this.props.getPlantsInZone(zone, preference)
+    const index = this.props.plants.findIndex(plant => plant.zone === zone)
+    try {
+      if (index === -1) {
+        await this.props.getPlantsInZone(zone)
+      } else {
+        this.setState({
+          dataStored: true,
+          storedPlants: this.props.plants[index]
+        })
+      }
+    } catch (err) {
+      console.log(err)
+    }
     this.setState({loading: false})
   }
 
   render() {
+    const {zone} = this.props
+    console.log('state in component did mount', this.state)
+    console.log(
+      'trying to access plants array',
+      this.props.plants.findIndex(plant => plant.zone === zone)
+    )
     console.log('this.props.celLId in PlantList', this.props)
-    while (this.state.loading === true)
+    if (this.state.loading === true)
       return (
         <div>
           <h1 className="loading">loading plants...</h1>
@@ -30,12 +51,12 @@ class PlantList extends Component {
       )
 
     if (!this.state.singlePlantView && !this.state.loading) {
-      console.log('this.props.plants', this.props.plants)
-      console.log(
-        'this.props.plants.map',
-        this.props.plants.map(plant => plant)
-      )
-      const filtered = this.props.plants.filter(
+      const plants =
+        this.state.dataStored === true
+          ? this.state.storedPlants.plants
+          : this.props.plants[this.props.plants.length - 1].plants
+      console.log('plants', plants)
+      const filtered = plants.filter(
         (v, i, a) => a.findIndex(t => t.id === v.id && t.id === v.id) === i
       )
       return (
@@ -95,8 +116,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getPlantsInZone: (zone, preference) =>
-      dispatch(fetchPlantsInZone(zone, preference))
+    getPlantsInZone: zone => dispatch(fetchPlantsInZone(zone))
   }
 }
 export default connect(mapState, mapDispatch)(PlantList)

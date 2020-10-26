@@ -3,8 +3,10 @@ import React from 'react'
 const Specs = props => {
   const plant = props.plant.main_species
   const {specifications} = plant
+  console.log('specs', specifications)
   const {growth} = plant
-  return (
+
+  return plant !== null ? (
     <div>
       {specifications.average_height.cm !== null ? (
         <li>average height: {specifications.average_height.cm} cm</li>
@@ -39,6 +41,8 @@ const Specs = props => {
         <div />
       )}
     </div>
+  ) : (
+    <div>details not currently available</div>
   )
 }
 
