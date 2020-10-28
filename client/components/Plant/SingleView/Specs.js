@@ -1,48 +1,46 @@
 import React from 'react'
 
 const Specs = props => {
-  const plant = props.plant.main_species
-  const {specifications} = plant
-  console.log('specs', specifications)
-  const {growth} = plant
+  const plant = props.plant !== null ? props.plant.main_species : null
 
   return plant !== null ? (
     <div>
-      {specifications.average_height.cm !== null ? (
-        <li>average height: {specifications.average_height.cm} cm</li>
+      {plant.specifications.average_height.cm !== null ? (
+        <li>average height: {plant.specifications.average_height.cm} cm</li>
       ) : (
         <div />
       )}
-      {specifications.maximum_height.cm !== null ? (
-        <li>maximum height: {specifications.maximum_height.cm} cm</li>
+      {plant.specifications.maximum_height.cm !== null ? (
+        <li>maximum height: {plant.specifications.maximum_height.cm} cm</li>
       ) : (
         <div />
       )}
-      {specifications.growth_form === null ? (
+      {plant.specifications.growth_form === null ? (
         <div />
       ) : (
         <li>
-          growth direction: {specifications.shape_and_orientation.toLowerCase()}
+          growth direction:{' '}
+          {plant.specifications.shape_and_orientation.toLowerCase()}
         </li>
       )}
-      {growth.maximum_precipitation.mm !== null ? (
-        <li>max precipitation: {growth.maximum_precipitation.mm} mm</li>
+      {plant.growth.maximum_precipitation.mm !== null ? (
+        <li>max precipitation: {plant.growth.maximum_precipitation.mm} mm</li>
       ) : (
         <div />
       )}
-      {growth.minimum_precipitation.mm !== null ? (
-        <li>min precipitation: {growth.minimum_precipitation.mm} mm</li>
+      {plant.growth.minimum_precipitation.mm !== null ? (
+        <li>min precipitation: {plant.growth.minimum_precipitation.mm} mm</li>
       ) : (
         <div />
       )}
-      {growth.minimum_temperature.deg_f !== null ? (
-        <li>min temperature: {growth.minimum_temperature.deg_f} F</li>
+      {plant.growth.minimum_temperature.deg_f !== null ? (
+        <li>min temperature: {plant.growth.minimum_temperature.deg_f} F</li>
       ) : (
         <div />
       )}
     </div>
   ) : (
-    <div>details not currently available</div>
+    <div>specs not currently available</div>
   )
 }
 

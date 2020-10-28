@@ -5,7 +5,7 @@ class GardenDetails extends Component {
     return (
       <div id="garden-title">
         <div id="garden-name">{this.props.garden.name}</div>
-        <div className="garden-details">location: {this.props.zoneName}</div>
+        <div className="garden-details">{this.props.zoneName}</div>
         {/* <div className="garden-details">
           plant type: {this.props.garden.plantType}
         </div> */}

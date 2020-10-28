@@ -123,7 +123,7 @@ export const removePlantFromGardenOnServer = (gardenId, coordinates) => {
     try {
       console.log('gardenId', gardenId)
       console.log('coordinate to delete in store', coordinates)
-      const {data} = await axios.delete(path, coordinates)
+      const {data} = await axios.put(path, {coordinates: coordinates})
       console.log('data', data)
       dispatch(deletePlantFromGarden(data))
     } catch (err) {
@@ -156,6 +156,12 @@ const gardenReducer = (state = initialState, action) => {
         garden: action.garden
       }
     case ADD_PLANT_TO_GARDEN:
+      return {
+        ...state,
+        gardenPlant: action.plant
+      }
+
+    case REMOVE_PLANT_FROM_GARDEN:
       return {
         ...state,
         gardenPlant: action.plant

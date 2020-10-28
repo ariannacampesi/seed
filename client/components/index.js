@@ -3,7 +3,7 @@
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
-export {default as Home} from './home'
+export {default as Home} from './Home/home'
 export {default as Navbar} from './Navbar/navbar'
 export {default as FooterBorder} from './Footer/footer-border'
 export {default as UserHome} from './user-home'

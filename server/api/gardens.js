@@ -127,25 +127,44 @@ router.delete('/:gardenId', async (req, res, next) => {
   }
 })
 
-router.delete('/plant/:gardenId', async (req, res, next) => {
+router.put('/plant/:gardenId', async (req, res, next) => {
+  console.log('in delete plant from garden route')
+  const {gardenId} = req.params
+  const foundGarden = await Garden.findByPk(+gardenId)
+  console.log('req.body in delete plant', req.body)
+  const {coordinates} = req.body
+  console.log('coordinates', coordinates)
+  console.log('foundGarden', foundGarden.id)
+  console.log(
+    foundGarden.plants.find(plant => plant.coordinates === coordinates)
+  )
+  console.log('foundGarden.plants', foundGarden.plants)
   try {
-    const {gardenId} = req.params
-    const foundGarden = await Garden.findByPk(+gardenId)
-    const {coordinates} = req.body
+    if (
+      foundGarden.plants.find(plant => plant.coordinates === coordinates) !==
+      undefined
+    ) {
+      const existingPlant = foundGarden.plants.find(
+        plant => plant.coordinates === coordinates
+      )
+      console.log('existingPlant', existingPlant)
+      const indexOfExistingPlant = foundGarden.plants.indexOf(existingPlant)
+      console.log('indexOfExistingPlant', indexOfExistingPlant)
+      console.log('foudnGarden.plants before splice', foundGarden.plants)
 
-    const existingPlant = foundGarden.plants.find(
-      plant => plant.coordinates === coordinates
-    )
+      const gardenPlants = [...foundGarden.plants]
+      gardenPlants.splice(indexOfExistingPlant, 1)
+      foundGarden.plants = gardenPlants
 
-    const indexOfExistingPlant = foundGarden.plants.indexOf(existingPlant)
-    console.log('foudnGarden.plants before splice', foundGarden.plants)
-
-    foundGarden.plants.splice(indexOfExistingPlant, 1)
-
-    await foundGarden.update({plants: foundGarden.plants})
-    console.log('foudnGarden.plants after splice', foundGarden.plants)
-    res.status(204)
+      await foundGarden.save()
+      console.log('foudnGarden.plants after splice', foundGarden.plants)
+      res.status(204)
+    } else {
+      return 'in the else statement'
+    }
   } catch (err) {
+    console.log('there has been an error')
+
     next(err)
   }
 })

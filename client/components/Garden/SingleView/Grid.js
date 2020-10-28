@@ -13,9 +13,9 @@ const Grid = props => {
   const [update, setUpdate] = useState(props.update)
 
   const tr = []
-  for (let r = 0; r < rows; r++) {
+  for (let r = 1; r < rows + 1; r++) {
     const td = []
-    for (let c = 0; c < columns; c++) {
+    for (let c = 1; c < columns + 1; c++) {
       td.push(
         <td onClick={props.props} key={`${r},${c}`} id={`${r},${c}`}>
           {gardenPlants.map(

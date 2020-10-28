@@ -1,13 +1,14 @@
 import React from 'react'
 
 const About = props => {
-  const plant = props.plant.main_species
-  const {specifications} = plant
-  const {growth} = plant
+  const plant =
+    props.plant.main_species !== null ? props.plant.main_species : null
+  console.log('plant in About', plant)
+
   let edibleParts = ''
   let bloomMonths = ''
 
-  return (
+  return plant !== null ? (
     <div>
       {plant.duration !== null ? <li>duration: {plant.duration}</li> : <div />}
       {plant.edible_part === null ? (
@@ -24,24 +25,24 @@ const About = props => {
         </li>
       )}
       <div>{edibleParts}</div>
-      {specifications.growth_form === null ? (
+      {plant.specifications.growth_form === null ? (
         <div />
       ) : (
-        <li>growth form: {specifications.growth_form.toLowerCase()} </li>
+        <li>growth form: {plant.specifications.growth_form.toLowerCase()} </li>
       )}
-      {specifications.growth_rate === null ? (
+      {plant.specifications.growth_rate === null ? (
         <div />
       ) : (
-        <li>growth rate: {specifications.growth_rate.toLowerCase()}</li>
+        <li>growth rate: {plant.specifications.growth_rate.toLowerCase()}</li>
       )}
-      {growth.bloom_months === null ? (
+      {plant.growth.bloom_months === null ? (
         <div />
       ) : (
         <li>
           bloom months:{' '}
-          {growth.bloom_months.map(
+          {plant.growth.bloom_months.map(
             (month, index) =>
-              index < growth.bloom_months.length - 1
+              index < plant.growth.bloom_months.length - 1
                 ? bloomMonths + month + ', '
                 : bloomMonths + month
           )}
@@ -49,6 +50,8 @@ const About = props => {
         </li>
       )}
     </div>
+  ) : (
+    <div>details not currently available</div>
   )
 }
 

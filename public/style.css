@@ -2,6 +2,56 @@ body {
   font-family: 'Alice', serif;
 }
 
+#homepage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 1.5rem;
+}
+
+.home-section {
+  margin: 2rem;
+}
+
+.question {
+  font-weight: bold;
+}
+
+#home-cards {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.home-cards {
+  height: 20rem;
+  width: 20rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0 !important;
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  padding: 1rem;
+  background: #368156;
+  color: white;
+}
+
+#home-top {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+#first-div {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#second-div {
+  font-size: 1rem;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -35,9 +85,10 @@ form {
   margin-top: 0.5rem;
 }
 
-h1.loading {
+h1.loading,
+.loading {
   font-family: 'Lato', sans-serif;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: center;
   color: #ef6461;
   font-weight: bold;
@@ -80,7 +131,7 @@ a {
   background-repeat: repeat-x;
   background-position: bottom;
   background-size: 20%;
-  height: 100px;
+  height: 5rem;
   position: fixed;
   width: 100%;
   bottom: 0;
@@ -102,8 +153,10 @@ a {
 #back-button {
   font-family: 'Lato', sans-serif;
   font-size: 1rem;
-  margin-left: 20px;
+  margin-left: 1rem;
+  margin-top: 1rem;
   border-radius: 20px 20px 20px 20px;
+  width: 8rem;
 }
 
 #plant-list {
@@ -157,7 +210,7 @@ a {
 }
 
 .card {
-  margin-left: 3%;
+  margin-left: -0.5rem;
 }
 
 #single-plant-view-common_name {
@@ -199,7 +252,7 @@ li {
   border-radius: 20px 20px 20px 20px;
   margin-bottom: 5%;
   width: 10rem;
-  margin-left: 3%;
+  margin-left: -0.5rem;
 }
 
 #successfully-added {
@@ -211,6 +264,7 @@ li {
   margin-left: 20px;
   font-family: 'Lato', sans-serif;
   border-radius: 20px 20px 20px 20px;
+  width: 8rem;
 }
 
 /* GARDEN  */
@@ -425,6 +479,19 @@ button {
   border: thin solid gray;
 }
 
+#delete-plant-button {
+  color: gray;
+  border: none;
+  /* border: thin solid gray; */
+  background: transparent;
+}
+
+#delete-plant-button:hover {
+  color: #ef6461;
+  border: none;
+  background: transparent;
+}
+
 #grid {
   border: thin solid black;
   padding: 0px;
@@ -488,7 +555,35 @@ a {
 .plants-in-garden {
   padding-top: 5px;
   display: flex;
+  justify-content: space-evenly;
 }
+
+/* .plants-in-garden:hover {
+  color: #ef6461;
+} */
+
+/* .button-and-tooltip {
+  position: relative;
+  border-bottom: 1px dotted black;
+} */
+
+.tooltiptext {
+  visibility: hidden;
+  width: 4rem;
+  background-color: #ef6461;
+  color: white;
+  text-align: center;
+  border-radius: 20px 20px 20px 20px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  font-size: 0.8rem;
+}
+
+.button-and-tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
 #grid-details {
   display: flex;
   justify-content: space-evenly;
@@ -557,6 +652,9 @@ a {
 
 @media screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3),
   screen and (min-device-width: 375px) and (max-device-width: 667px) {
+  html {
+    width: 100%;
+  }
   #my-gardens {
     width: 100%;
   }
@@ -589,11 +687,57 @@ a {
     text-align: center;
   }
 
-  #Question1 {
-    font-size: 100%;
+  #get-started-button {
+    font-size: 2rem;
+  }
+
+  label {
+    font-size: 2rem;
   }
 
   .location-select {
-    font-size: 100%;
+    font-size: 2rem;
+    width: 100%;
+  }
+
+  #fourByFour,
+  #eightByFour {
+    font-size: 2rem;
+  }
+
+  #Question4 {
+    font-size: 2rem;
+  }
+
+  #name-input {
+    width: 100%;
+    font-size: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #submit-answers button {
+    font-size: 2rem;
+    margin: 1rem;
+  }
+  #single-plant-view-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #single-plant-view-details > img {
+    align-self: center;
+  }
+
+  #add-to-garden-button {
+    margin-top: 1rem;
+    align-self: center;
+  }
+
+  #single-plant-view-common_name {
+    font-size: 2rem;
+    text-align: center;
   }
 }

@@ -47,8 +47,9 @@ class SingleGardenView extends Component {
   }
 
   handleDeletePlant(event) {
-    this.updateState(event.target.value)
+    console.log('in handleDeletePlant')
     this.props.deletePlantFromGarden(this.props.garden.id, event.target.value)
+    this.updateState(event.target.value)
   }
 
   updateState(coordinates) {
@@ -109,16 +110,26 @@ class SingleGardenView extends Component {
                         <Card.Body>
                           {this.props.garden.plants.length > 0 ? (
                             <div>
-                              {this.props.garden.plants.map((plant, index) => (
-                                <div key={index} className="plants-in-garden">
+                              {this.props.garden.plants.map(plant => (
+                                <div
+                                  key={plant.coordinates}
+                                  title={plant.coordinates}
+                                  className="plants-in-garden"
+                                >
                                   <li>{plant.name.toLowerCase()}</li>
-                                  <button
-                                    type="button"
-                                    onClick={this.handleDeletePlant}
-                                    value={plant.coordinates}
-                                  >
-                                    x
-                                  </button>
+                                  <div className="button-and-tooltip">
+                                    <button
+                                      id="delete-plant-button"
+                                      type="submit"
+                                      onClick={this.handleDeletePlant}
+                                      value={plant.coordinates}
+                                    >
+                                      x
+                                    </button>
+                                    <span className="tooltiptext">
+                                      at {plant.coordinates}
+                                    </span>
+                                  </div>
                                 </div>
                               ))}
                             </div>

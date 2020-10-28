@@ -143,7 +143,7 @@ class SinglePlant extends Component {
         >
           <div id="sucessfully-added-div">
             <div id="successfully-added">
-              {plant.common_name} successfully added!
+              {plant.common_name.toLowerCase()} successfully added!
             </div>
             <button
               type="button"
