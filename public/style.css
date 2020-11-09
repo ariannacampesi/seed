@@ -655,12 +655,22 @@ a {
   html {
     width: 100%;
   }
+
+  #home-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   #my-gardens {
     width: 100%;
   }
 
   #nav {
-    display: inline;
+    border-bottom: thin solid black;
+  }
+
+  #logo {
+    width: 100%;
   }
 
   #links {
@@ -703,6 +713,19 @@ a {
   #fourByFour,
   #eightByFour {
     font-size: 2rem;
+    width: auto;
+  }
+
+  #eightByFour:hover,
+  #eightByFour:active {
+    background-color: #ef6461;
+    color: white;
+  }
+
+  #fourByFour:hover,
+  #fourByFour:active {
+    background-color: #ef6461;
+    color: white;
   }
 
   #Question4 {
@@ -729,6 +752,7 @@ a {
 
   #single-plant-view-details > img {
     align-self: center;
+    width: 50%;
   }
 
   #add-to-garden-button {
@@ -739,5 +763,9 @@ a {
   #single-plant-view-common_name {
     font-size: 2rem;
     text-align: center;
+  }
+
+  .next-previous button {
+    width: 15%;
   }
 }
