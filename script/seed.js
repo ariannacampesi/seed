@@ -1,3 +1,5 @@
+'use strict'
+
 const db = require('../server/db')
 const {User, DistributionZone} = require('../server/db/models')
 const zones = require('./distribution-zones')

@@ -1,5 +1,5 @@
 {
-  "name": "seed",
+  "name": "clientcd",
   "version": "2.0.0",
   "description": "Some boilerplate code to get you started - get shakin'!",
   "engines": {
@@ -20,7 +20,8 @@
     "start": "node server",
     "start-dev": "NODE_ENV='development' npm run build-client-watch & NODE_ENV='development' npm run start-server",
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
-    "test": "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register"
+    "test": "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register",
+    "heroku-postbuild": "npm install --production"
   },
   "husky": {
     "hooks": {
@@ -49,6 +50,7 @@
     "express": "^4.16.4",
     "express-session": "^1.15.1",
     "history": "^4.9.0",
+    "knex": "^0.21.12",
     "morgan": "^1.9.1",
     "passport": "^0.4.1",
     "passport-google-oauth": "^2.0.0",
@@ -68,6 +70,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sequelize": "^5.3.1",
+    "sequelize-cli": "^6.2.0",
     "socket.io": "^2.2.0",
     "style-loader": "^1.2.1",
     "use-local-storage-state": "^5.1.0"
