@@ -31,8 +31,9 @@ class NewGarden extends Component {
     this.handleSizeClick = this.handleSizeClick.bind(this)
   }
 
-  componentDidMount() {
-    this.props.getDistributionZones()
+  async componentDidMount() {
+    await this.props.getDistributionZones()
+    console.log('getting dist zones')
   }
 
   handleChange(event) {
